@@ -2,10 +2,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,11 +11,14 @@ public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
+    @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Seller> followings;
     private String reward;
-    private List<Order> orders;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
+    private List<ProductOrder> productOrders;
 
 }

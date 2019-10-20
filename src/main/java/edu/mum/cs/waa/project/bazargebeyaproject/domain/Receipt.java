@@ -2,11 +2,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -15,9 +11,11 @@ public class Receipt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //todo transient field receiptEntry
 
+    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<ReceiptEntry> receiptEntries;
-    private LocalDate orderDate;
     private Double total;
-    private Long orderId;
+    @OneToOne(mappedBy = "receipt")
+    private ProductOrder productOrder;
 }

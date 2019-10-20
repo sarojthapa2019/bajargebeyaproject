@@ -2,10 +2,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -19,4 +16,6 @@ public class ReceiptEntry {
     private int quantity;
     private Double tax;
     private double discount;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Receipt receipt;
 }

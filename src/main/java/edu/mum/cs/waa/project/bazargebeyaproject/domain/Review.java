@@ -2,10 +2,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +13,10 @@ public class Review {
     private Long id;
     private String description;
     private LocalDate date;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Buyer buyer;
     private boolean isApproved;
-    private String rating;
+    private int rating;
+    @ManyToOne()
+    private Product product;
 }

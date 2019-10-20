@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-public class Payment {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
