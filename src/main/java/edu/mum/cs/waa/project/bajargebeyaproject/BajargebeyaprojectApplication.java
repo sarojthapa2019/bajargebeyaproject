@@ -139,7 +139,7 @@ public class BajargebeyaprojectApplication {
         b.setCart(ca);
         cartService.saveCart(ca);
         ca.setBuyer(b);
-        ca.getProducts().add(p);
+//        ca.getProducts().add(p);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
