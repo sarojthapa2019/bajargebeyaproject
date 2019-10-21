@@ -1,4 +1,4 @@
-package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceimpl;
+package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
 import org.springframework.stereotype.Service;
 
