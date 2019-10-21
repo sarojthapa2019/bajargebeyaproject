@@ -51,11 +51,7 @@ public class BajargebeyaprojectApplication {
         s.setUser(us);
         userService.saveSeller(s);
 //        userService.save(us);
-        //user_seller
 
-//        User us = userService.findById(1l);
-//        User ua = userService.findById(2l);
-//        User ub = userService.findById(3l);
         User ub = new User();
         ub.setAccount(acc);
         ub.setBillingAddress(add);
@@ -67,13 +63,12 @@ public class BajargebeyaprojectApplication {
         Role rb = new Role();
         rb.setRole("Buyer");
         ub.setRole(rb);
-  //      userService.save(ub);
         Buyer b = new Buyer();
         b.setReward(100);
         b.setUser(ub);
+        userService.saveBuyer(b);
         s.getFollowers().add(b);
         b.getFollowings().add(s);
-        userService.saveBuyer(b);
         //user_seller, user_buyer, buyer, user_admin, product, category, image1, image2
         //user_seller, user_buyer
 
@@ -102,9 +97,9 @@ public class BajargebeyaprojectApplication {
         p.setName("Laptop");
         p.setUnit("pcs.");
         p.setStock(5);
+        productService.save(p);
         s.getProducts().add(p);
         p.setSeller(us);
-        productService.save(p);
         //user_seller, user_buyer, user_admin, product
 
         Category c = new Category();
@@ -132,27 +127,29 @@ public class BajargebeyaprojectApplication {
 
         Review rv = new Review();
         rv.setApproved(true);
-        rv.setBuyer(b);
         rv.setDate(LocalDate.now());
         rv.setDescription("Good Product");
+        rv.setRating(5);
+        reviewService.save(rv);
         rv.setProduct(p);
         p.getReviews().add(rv);
-        rv.setRating(5);
         rv.setBuyer(b);
-        reviewService.save(rv);
 
         Cart ca = new Cart();
-        ca.setBuyer(b);
         b.setCart(ca);
-        ca.getProducts().add(p);
         cartService.saveCart(ca);
+        ca.setBuyer(b);
+        ca.getProducts().add(p);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
-        po.getProducts().add(p);
         po.setQuantity(2);
         po.setShippingAddress(add);
         po.setStatus("delivered");
+        productService.saveOrder(po);
+        po.getProducts().add(p);
+        po.setBuyer(b);
+        b.getProductOrders().add(po);
 
         Receipt rc = new Receipt();
         rc.setProductOrder(po);
@@ -166,11 +163,8 @@ public class BajargebeyaprojectApplication {
             re.setReceipt(rc);
             rc.getReceiptEntries().add(re);
         }
-        po.setReceipt(rc);
-        po.setBuyer(b);
-        b.getProductOrders().add(po);
-
-        productService.saveOrder(po);
         paymentService.saveReceipt(rc);
+        po.setReceipt(rc);
+
     }
 }
