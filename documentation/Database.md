@@ -13,12 +13,12 @@ As per the project requirement we are using Mysql Server as our datasource.
 >*spring.datasource.driver-class-name=com.mysql.jdbc.Driver*
 >*spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect*
 
-We use application properties as following for development and production
+We use application properties as following for development and production environment.
 -application-dev.properties (development)
 -application-prod.properties (production)
 
 
-> Written with [StackEdit](https://stackedit.io/).
+> Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgzMjQ5MDU4OSwtMTc2NjU0NTcwNF19
+eyJoaXN0b3J5IjpbMTQxMTA3ODg4NywtMTc2NjU0NTcwNF19
 -->
