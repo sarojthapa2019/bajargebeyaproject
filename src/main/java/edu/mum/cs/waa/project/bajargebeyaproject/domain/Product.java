@@ -13,10 +13,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany//(cascade = CascadeType.ALL)
     private List<Category> categories = new ArrayList<>();
     private double unitPrice;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.ALL)
     private User seller;
     private String description;
     private int stock;
@@ -26,7 +26,7 @@ public class Product {
     private double discount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")//, cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
 }

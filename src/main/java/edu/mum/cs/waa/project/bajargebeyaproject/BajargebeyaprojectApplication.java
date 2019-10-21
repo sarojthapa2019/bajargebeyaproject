@@ -22,7 +22,7 @@ public class BajargebeyaprojectApplication {
         CartService cartService = context.getBean(CartService.class);
         ReviewService reviewService = context.getBean(ReviewService.class);
         PaymentService paymentService = context.getBean(PaymentService.class);
-        //NotificationService notificationService = context.getBean(NotificationService.class);
+        NotificationService notificationService = context.getBean(NotificationService.class);
 
         User us = new User();
         Account acc = new Account();
@@ -66,6 +66,7 @@ public class BajargebeyaprojectApplication {
         Buyer b = new Buyer();
         b.setReward(100);
         b.setUser(ub);
+        b.setCart(new Cart());
         userService.saveBuyer(b);
         s.getFollowers().add(b);
         b.getFollowings().add(s);
@@ -87,7 +88,10 @@ public class BajargebeyaprojectApplication {
         Admin a = new Admin();
         a.setUser(ua);
         userService.saveAdmin(a);
-        //user_seller, user_buyer, user_admin
+
+        Category c = new Category();
+        c.setName("Electronics");
+        productService.saveCategory(c);
 
         Product p = new Product();
         p.setAnAdd(false);
@@ -97,17 +101,11 @@ public class BajargebeyaprojectApplication {
         p.setName("Laptop");
         p.setUnit("pcs.");
         p.setStock(5);
-        productService.save(p);
-        s.getProducts().add(p);
         p.setSeller(us);
-        //user_seller, user_buyer, user_admin, product
-
-        Category c = new Category();
-        c.setName("Electronics");
+        s.getProducts().add(p);
         c.getProducts().add(p);
         p.getCategories().add(c);
-        productService.saveCategory(c);
-        //user_seller, user_buyer, user_admin, product, category
+        productService.save(p);
 
         Image i = new Image();
         i.setProduct(p);
@@ -115,32 +113,31 @@ public class BajargebeyaprojectApplication {
 
         Image i2 = new Image();
         i2.setProduct(p);
-        i.setUrl("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6240/6240848_rd.jpg");
+        i2.setUrl("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6240/6240848_rd.jpg");
 
         p.getImages().add(i);
         p.getImages().add(i2);
 
         productService.saveImage(i);
         productService.saveImage(i2);
-        //user_seller, user_buyer, user_admin, product, category, image1, image2
 
         Review rv = new Review();
         rv.setApproved(true);
         rv.setDate(LocalDate.now());
         rv.setDescription("Good Product");
         rv.setRating(5);
-        reviewService.save(rv);
         rv.setProduct(p);
         p.getReviews().add(rv);
         rv.setBuyer(b);
+        reviewService.save(rv);
 
-        Cart ca = new Cart();
-        b.setCart(ca);
-        ca.setBuyer(b);
+        Cart ca = b.getCart();
         CartEntry ce = new CartEntry();
-        ce.setProduct(p);
         ce.setQuantity(2);
+        ce.setCart(ca);
+        ce.setProduct(p);
         ca.getCartEntries().add(ce);
+        ca.setBuyer(b);
         cartService.saveCart(ca);
 
         ProductOrder po = new ProductOrder();
@@ -148,13 +145,14 @@ public class BajargebeyaprojectApplication {
         po.setQuantity(2);
         po.setShippingAddress(add);
         po.setStatus("delivered");
-        productService.saveOrder(po);
         po.getProducts().add(p);
         po.setBuyer(b);
         b.getProductOrders().add(po);
+        productService.saveOrder(po);
 
         Receipt rc = new Receipt();
         rc.setProductOrder(po);
+        double total = 0.0;
         for(Product pr: po.getProducts()){
             ReceiptEntry re = new ReceiptEntry();
             re.setDiscount(pr.getDiscount());
@@ -164,9 +162,16 @@ public class BajargebeyaprojectApplication {
             re.setTax(pr.getTax());
             re.setReceipt(rc);
             rc.getReceiptEntries().add(re);
+            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
         }
-        paymentService.saveReceipt(rc);
+        rc.setTotal(total);
         po.setReceipt(rc);
+        paymentService.saveReceipt(rc);
 
+        notificationService.notifyAll("Welcome to Awesome Shopping Site!","www.google.com");
+        notificationService.notifyAdmins("Be alert of Hackers!","www.stackoverflow.com");
+        notificationService.notifyBuyers("Cheap Sales. Hurry up","www.github.com");
+        notificationService.notifySellers("Buyers out on market!","www.amazon.com");
+        notificationService.notify("Test notice","/",b.getUser());
     }
 }

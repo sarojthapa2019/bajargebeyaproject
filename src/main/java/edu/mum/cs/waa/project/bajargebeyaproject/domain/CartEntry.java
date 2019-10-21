@@ -10,7 +10,7 @@ public class CartEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne//(cascade = CascadeType.ALL)
     private Product product;
     private int quantity;
     @ManyToOne

@@ -35,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService {
         n.setPriority(0);
         n.getReceivers().add(target);
         n.setActionUrl(actionUrl);
-        target.getNotifications().add(n);
+        target.addNotification(n);
         return (notificationRepo.save(n)!=null);
     }
 
