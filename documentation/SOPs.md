@@ -13,7 +13,7 @@
 	 - plular nouns (lists) to indicate the entity on the many side
 ## Code documentation
  - Add comments/documentation to classes, interfaces, methods, and when required fields/variables
- - Service and repository interfaces are self explanatory, there is no need for documentation
+ - The methods in Service and Repository interfaces thatare self explanatory, there is no need for documentation
  - For comments/documents, add the following in the comments/documents before classes, interfaces, methods, etc.
 	 - Name
 	 - Date
@@ -24,6 +24,7 @@
  - use LocalDate as a type
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3NDIyMzIwMCwxNDAyMzQ2OTA5LC0xNz
-I2MTMxMjc5LDk3MTc4NTE1NywtODM5NzU2MTkwXX0=
+eyJoaXN0b3J5IjpbLTE4MjQ3NzUxNzUsLTE3NDIyMzIwMCwxND
+AyMzQ2OTA5LC0xNzI2MTMxMjc5LDk3MTc4NTE1NywtODM5NzU2
+MTkwXX0=
 -->
