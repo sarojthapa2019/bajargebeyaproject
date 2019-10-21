@@ -6,7 +6,7 @@ It consists of following major fields:
 + ActionUrl : It is a link to action which is required by user to address the notification.
 + Priority : Can be used to distinguish high priority notifications Vs low priority.
 
-> Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI5Mjg1Mjg3Miw3MzA5OTgxMTZdfQ==
+eyJoaXN0b3J5IjpbMTE0MjI0NjUyNCwtMjkyODUyODcyLDczMD
+k5ODExNl19
 -->
