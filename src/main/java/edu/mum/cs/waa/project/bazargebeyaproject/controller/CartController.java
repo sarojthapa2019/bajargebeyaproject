@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CartController {
 
-    @GetMapping("/product/cart")
-    public String cartPage(){
+    @GetMapping("/cart")
+    public String cart(){
         return "cart";
     }
 }

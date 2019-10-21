@@ -3,6 +3,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,10 +14,10 @@ public class Product {
     private Long id;
     private String name;
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
     private double unitPrice;
     @ManyToOne(cascade = CascadeType.ALL)
-    private Seller seller;
+    private User seller;
     private String description;
     private int stock;
     private boolean isAnAdd;
@@ -24,8 +25,8 @@ public class Product {
     private double tax;
     private double discount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<>();
 
 }
