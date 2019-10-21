@@ -151,8 +151,8 @@ public class BazargebeyaprojectApplication {
 //        userService.save(ub);
 //        userService.save(us);
 
-        productService.save(p);
-        productService.saveOrder(po);
+//        productService.save(p);
+//        productService.saveOrder(po);
     }
 
 }
