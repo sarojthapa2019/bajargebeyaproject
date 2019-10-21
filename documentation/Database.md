@@ -23,9 +23,11 @@ There are numerous alternatives of mysql database server. Some of the best alter
 + GCP - Google Cloud Platform (*Free resource of worth 300$*)
 + [www.kamatera.com](https://www.kamatera.com/express/compute/apps.php?tcampaign=35160_365074&bta=35160&nci=5443&gclid=Cj0KCQjwi7DtBRCLARIsAGCJWBp-YSUVTrod6Jo5_KPOAY7X-sJFdZzcUTo103fs5S6OQ5P7kiXt-m0aAnBnEALw_wcB#app=mySQL) (*Free one month trial and $0.005/hour for every 1GB storage*)
 
->**Note**: Main reason for not using these alternatives is due to lack of time for 
+>**Note**: Main reason for not using these alternatives is due to lack of time for further research on setting up the environment.
+
+
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNTQwMzIyMDAsMTQxMTA3ODg4NywtMT
-c2NjU0NTcwNF19
+eyJoaXN0b3J5IjpbNzUyNDM1Mjc5LDE0MTEwNzg4ODcsLTE3Nj
+Y1NDU3MDRdfQ==
 -->
