@@ -17,8 +17,10 @@ We use application properties as following for development and production enviro
 -application-dev.properties (development)
 -application-prod.properties (production)
 
-
+## Alternative:
+There are more better alternatives of www.remotemysql.com. Some of the 
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxMTA3ODg4NywtMTc2NjU0NTcwNF19
+eyJoaXN0b3J5IjpbLTQ0NDUxNjAyMCwxNDExMDc4ODg3LC0xNz
+Y2NTQ1NzA0XX0=
 -->
