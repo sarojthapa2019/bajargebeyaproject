@@ -18,9 +18,11 @@ We use application properties as following for development and production enviro
 -application-prod.properties (production)
 
 ## Alternative:
-There are more better alternatives of www.remotemysql.com. Some of the 
+There are more better alternatives of www.remotemysql.com. Some of the best alternatives are listed below:
++  AWS (Amazon Web Service)
+>
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0NDUxNjAyMCwxNDExMDc4ODg3LC0xNz
+eyJoaXN0b3J5IjpbMTMxODk5MjgwOCwxNDExMDc4ODg3LC0xNz
 Y2NTQ1NzA0XX0=
 -->
