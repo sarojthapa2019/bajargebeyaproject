@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE-$CONTENT_TITLE">Bajar Gebeya</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Bajar Gebeya template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+</head>
+<body>
+
+<!-- Menu -->
+
+<div class="menu">
+
+    <!-- Search -->
+    <div class="menu_search">
+        <form action="#" id="menu_search_form" class="menu_search_form">
+            <input type="text" class="search_input" placeholder="Search Item" required="required">
+            <button class="menu_search_button"><img src="images/search.png" alt=""></button>
+        </form>
+    </div>
+    <!-- Navigation -->
+    <div class="menu_nav">
+        <ul>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Kids</a></li>
+            <li><a href="#">Home Deco</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <!-- Contact Info -->
+    <div class="menu_contact">
+        <div class="menu_phone d-flex flex-row align-items-center justify-content-start">
+            <div>
+                <div><img src="images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div>
+            </div>
+            <div>+1 912-252-7350</div>
+        </div>
+        <div class="menu_social">
+            <ul class="menu_social_list d-flex flex-row align-items-start justify-content-start">
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="super_container">
+
+    <!-- Header -->
+
+    <div th:replace="layout/header :: header"></div>
+
+
+    <div class="super_container_inner">
+        <div class="super_overlay"></div>
+
+        <div layout:fragment="main"></div>
+
+
+        <!-- Boxes -->
+
+        <div class="boxes">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="boxes_container d-flex flex-row align-items-start justify-content-between flex-wrap">
+
+                            <!-- Box -->
+                            <div class="box">
+                                <div class="background_image" style="background-image:url(images/box_1.jpg)"></div>
+                                <div class="box_content d-flex flex-row align-items-center justify-content-start">
+                                    <div class="box_left">
+                                        <div class="box_image">
+                                            <a href="../category.html">
+                                                <div class="background_image"
+                                                     style="background-image:url(images/box_1_img.jpg)"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="box_right text-center">
+                                        <div class="box_title">Trendsetter Collection</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box -->
+                            <div class="box">
+                                <div class="background_image" style="background-image:url(images/box_2.jpg)"></div>
+                                <div class="box_content d-flex flex-row align-items-center justify-content-start">
+                                    <div class="box_left">
+                                        <div class="box_image">
+                                            <a href="../category.html">
+                                                <div class="background_image"
+                                                     style="background-image:url(images/box_2_img.jpg)"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="box_right text-center">
+                                        <div class="box_title">Popular Choice</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Box -->
+                            <div class="box">
+                                <div class="background_image" style="background-image:url(images/box_3.jpg)"></div>
+                                <div class="box_content d-flex flex-row align-items-center justify-content-start">
+                                    <div class="box_left">
+                                        <div class="box_image">
+                                            <a href="../category.html">
+                                                <div class="background_image"
+                                                     style="background-image:url(images/box_3_img.jpg)"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="box_right text-center">
+                                        <div class="box_title">Popular Choice</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+
+        <div class="features">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Feature -->
+                    <div class="col-lg-4 feature_col">
+                        <div class="feature d-flex flex-row align-items-start justify-content-start">
+                            <div class="feature_left">
+                                <div class="feature_icon"><img src="images/icon_1.svg" alt=""></div>
+                            </div>
+                            <div class="feature_right d-flex flex-column align-items-start justify-content-center">
+                                <div class="feature_title">Fast Secure Payments</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature -->
+                    <div class="col-lg-4 feature_col">
+                        <div class="feature d-flex flex-row align-items-start justify-content-start">
+                            <div class="feature_left">
+                                <div class="feature_icon ml-auto mr-auto"><img src="images/icon_2.svg" alt=""></div>
+                            </div>
+                            <div class="feature_right d-flex flex-column align-items-start justify-content-center">
+                                <div class="feature_title">Premium Products</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature -->
+                    <div class="col-lg-4 feature_col">
+                        <div class="feature d-flex flex-row align-items-start justify-content-start">
+                            <div class="feature_left">
+                                <div class="feature_icon"><img src="images/icon_3.svg" alt=""></div>
+                            </div>
+                            <div class="feature_right d-flex flex-column align-items-start justify-content-center">
+                                <div class="feature_title">Free Delivery</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+
+        <div th:replace="layout/footer :: footer"></div>
+
+    </div>
+
+</div>
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap-4.1.2/popper.js"></script>
+<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+<script src="plugins/greensock/TweenMax.min.js"></script>
+<script src="plugins/greensock/TimelineMax.min.js"></script>
+<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="plugins/greensock/animation.gsap.min.js"></script>
+<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/progressbar/progressbar.min.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
