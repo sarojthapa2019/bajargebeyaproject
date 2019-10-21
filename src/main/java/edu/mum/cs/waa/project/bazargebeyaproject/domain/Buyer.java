@@ -17,7 +17,7 @@ public class Buyer {
     private Cart cart;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Seller> followings;
-    private String reward;
+    private Integer reward;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
     private List<ProductOrder> productOrders;
 
