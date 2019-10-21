@@ -19,10 +19,12 @@ We use application properties as following for development and production enviro
 
 ## Alternative:
 There are more better alternatives of www.remotemysql.com. Some of the best alternatives are listed below:
-+  AWS (Amazon Web Service)
++  AWS - Amazon Web Service (*Free for one year*)
++ GCP - Google Cloud Platform (*Free resource of worth 300$*)
++ 
 >
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMxODk5MjgwOCwxNDExMDc4ODg3LC0xNz
-Y2NTQ1NzA0XX0=
+eyJoaXN0b3J5IjpbLTIwNzc1MDAyMDAsMTQxMTA3ODg4NywtMT
+c2NjU0NTcwNF19
 -->
