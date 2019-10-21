@@ -3,6 +3,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ public class Seller {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seller")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
     private boolean isApproved;
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "followings")
-    private List<Buyer> followers;
+    private List<Buyer> followers = new ArrayList<>();
 }

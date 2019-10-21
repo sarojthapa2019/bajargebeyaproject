@@ -3,6 +3,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,8 +15,6 @@ public class User {
 
     private String firstName;
     private String lastName;
-
-    //todo: making address class embedded
 
 //    @OneToOne(cascade = CascadeType.ALL)
     @Embedded
@@ -41,8 +40,9 @@ public class User {
     private Role role;
     private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
+    //@OneToOne(cascade = CascadeType.ALL)
+    @Embedded
     private Account account;
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Notification> notifications;
+    private List<Notification> notifications = new ArrayList<>();
 }

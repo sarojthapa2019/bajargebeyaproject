@@ -14,9 +14,9 @@ public class Notification {
     private Long id;
 
     private String message;
-    private String taskUrl;
+    private String actionUrl;
     private LocalDate date;
-    private String priority;
+    private Integer priority;
     @ManyToMany(mappedBy = "notifications")
     private List<User> receivers;
 }

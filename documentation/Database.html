@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="database">Database</h1>
+<h2 id="server-mysql">Server: Mysql</h2>
+<p>As per the project requirement we are using Mysql Server as our datasource.</p>
+<h2 id="setup">Setup</h2>
+<ul>
+<li>To simulate production and development environment it is required to have a common remote database server as production database and local/remote database as development database.</li>
+<li>For this we are using a free remote mysql server provided by <a href="http://www.remotemysql.com">www.remotemysql.com</a>. Each developer creates a free account on this site and can use his personalised database for local testing and one common database for production.</li>
+</ul>
+<p>We use application properties as following for development and production environment.</p>
+<p><u>For Development</u> <em>(database, username and password are personalised)</em></p>
+<blockquote>
+<p><strong>application-dev.properties</strong><br>
+<em>spring.datasource.url=jdbc:mysql://remotemysql.com:3306/xtTDyNlrK1</em><br>
+<em>spring.datasource.username=xtTDyNlrK1</em><br>
+<em>spring.datasource.password=ekCIK3eB8W</em><br>
+<em>spring.datasource.driver-class-name=com.mysql.jdbc.Driver</em><br>
+<em>spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect</em></p>
+</blockquote>
+<p><u>For Production</u></p>
+<blockquote>
+<p><strong>application-prod.properties</strong><br>
+<em>spring.datasource.url=jdbc:mysql://remotemysql.com:3306/4Dhgn9DONW</em><br>
+<em>spring.datasource.username=4Dhgn9DONW</em><br>
+<em>spring.datasource.password=PIYlfVqDkZ</em><br>
+<em>spring.datasource.driver-class-name=com.mysql.jdbc.Driver</em><br>
+<em>spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect</em></p>
+</blockquote>
+<blockquote>
+<p><strong>application.properties</strong><br>
+<em>spring.profiles.active=dev</em><br>
+<em><strong>OR,</strong></em><br>
+<em>spring.profiles.active=prod</em></p>
+</blockquote>
+<h2 id="alternatives">Alternatives:</h2>
+<p>There are numerous alternatives of mysql database server. Some of the best alternatives are listed below:</p>
+<ul>
+<li>AWS - Amazon Web Service (<em>Free for one year</em>)</li>
+<li>GCP - Google Cloud Platform (<em>Free resource of worth $300</em>)</li>
+<li><a href="https://www.kamatera.com/express/compute/apps.php?tcampaign=35160_365074&amp;bta=35160&amp;nci=5443&amp;gclid=Cj0KCQjwi7DtBRCLARIsAGCJWBp-YSUVTrod6Jo5_KPOAY7X-sJFdZzcUTo103fs5S6OQ5P7kiXt-m0aAnBnEALw_wcB#app=mySQL">www.kamatera.com</a> (<em>Free one month trial and $0.005/hour for every 1GB storage</em>)</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: Main reason for not using these alternatives is due to lack of time for further research on setting up the environment.</p>
+</blockquote>
+<blockquote>
+<p>Copyright @ AwesomeGroup 2019.</p>
+</blockquote>
+</div>
+</body>
+
+</html>

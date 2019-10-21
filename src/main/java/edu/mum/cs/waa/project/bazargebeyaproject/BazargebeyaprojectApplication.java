@@ -1,6 +1,5 @@
 package edu.mum.cs.waa.project.bazargebeyaproject;
 
-import edu.mum.cs.waa.project.bazargebeyaproject.Repository.ProductOrderRepo;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bazargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bazargebeyaproject.service.UserService;
@@ -15,49 +14,62 @@ public class BazargebeyaprojectApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BazargebeyaprojectApplication.class, args);
-        initializer(context);
+        dataLoader(context);
     }
 
-    public static void initializer(ApplicationContext context){
+    public static void dataLoader(ApplicationContext context){
         UserService userService = context.getBean(UserService.class);
         ProductService productService = context.getBean(ProductService.class);
         //NotificationService notificationService = context.getBean(NotificationService.class);
 
-        User us = new User();
-        Account acc = new Account();
-        acc.setCardType("Credit");
-        acc.setCsv("225");
-        acc.setExpiryDate(LocalDate.now());
-        acc.setNumber("12345678");
-        us.setAccount(acc);
-        Address add = new Address();
-        add.setCity("Fairfield");
-        add.setCountry("USA");
-        add.setState("IOWA");
-        add.setStreet("1000N 4th Street");
-        add.setZipCode("52557");
-        us.setBillingAddress(add);
-        us.setEmail("xyz@mum.edu");
-        us.setFirstName("Seller");
-        us.setLastName("user");
-        us.setMailingAddress(add);
-        us.setPassword("");
-        Role r = new Role();
-        r.setRole("Seller");
-        us.setRole(r);
-        userService.save(us);
+        User us = userService.findById(1l);
+//        Account acc = new Account();
+//        acc.setCardType("Credit");
+//        acc.setCsv("225");
+//        acc.setExpiryDate(LocalDate.now());
+//        acc.setNumber("12345678");
+//        us.setAccount(acc);
+//        Address add = new Address();
+//        add.setCity("Fairfield");
+//        add.setCountry("USA");
+//        add.setState("IOWA");
+//        add.setStreet("1000N 4th Street");
+//        add.setZipCode("52557");
+//        us.setBillingAddress(add);
+//        us.setEmail("xyz@mum.edu");
+//        us.setFirstName("Seller");
+//        us.setLastName("user");
+//        us.setMailingAddress(add);
+//        us.setPassword("");
+//        Role r = new Role();
+//        r.setRole("Seller");
+//        us.setRole(r);
 
-        User ub = new User();
-        ub.setAccount(acc);
-        ub.setBillingAddress(add);
-        ub.setEmail("pqr@mum.edu");
-        ub.setFirstName("Buyer");
-        ub.setLastName("user");
-        ub.setMailingAddress(add);
-        ub.setPassword("");
-        Role rb = new Role();
-        rb.setRole("Seller");
-        ub.setRole(rb);
+        User ub = userService.findById(3l);
+//                new User();
+//        ub.setAccount(acc);
+//        ub.setBillingAddress(add);
+//        ub.setEmail("pqr@mum.edu");
+//        ub.setFirstName("Buyer");
+//        ub.setLastName("user");
+//        ub.setMailingAddress(add);
+//        ub.setPassword("");
+//        Role rb = new Role();
+//        rb.setRole("Seller");
+//        ub.setRole(rb);
+
+        User ua = userService.findById(2l);
+//                new User();
+//        ua.setAccount(acc);
+//        ua.setBillingAddress(add);
+//        ua.setEmail("abc@mum.edu");
+//        ua.setFirstName("Admin");
+//        ua.setLastName("user");
+//        ua.setMailingAddress(add);
+//        ua.setPassword("admin");
+//        Role ra = new Role();
+//        ra.setRole("admin");
+//        ua.setRole(ra);
 
         Product p = new Product();
         p.setAnAdd(false);
@@ -132,17 +144,15 @@ public class BazargebeyaprojectApplication {
 
         p.getReviews().add(rv);
         p.setUnit("pcs.");
-        p.setSeller(s);
+        p.setSeller(us);
         p.setStock(5);
 
-        userService.save(ub);
+//        userService.save(ua);
+//        userService.save(ub);
 //        userService.save(us);
-        userService.save(us);
+
         productService.save(p);
-        ProductOrderRepo por = context.getBean(ProductOrderRepo.class);
-        por.save(po);
-
-
+        productService.saveOrder(po);
     }
 
 }

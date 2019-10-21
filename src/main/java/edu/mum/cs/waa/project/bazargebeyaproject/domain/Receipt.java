@@ -3,6 +3,7 @@ package edu.mum.cs.waa.project.bazargebeyaproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,7 +15,7 @@ public class Receipt {
     //todo transient field receiptEntry
 
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
-    private List<ReceiptEntry> receiptEntries;
+    private List<ReceiptEntry> receiptEntries = new ArrayList<>();
     private Double total;
     @OneToOne(mappedBy = "receipt")
     private ProductOrder productOrder;
