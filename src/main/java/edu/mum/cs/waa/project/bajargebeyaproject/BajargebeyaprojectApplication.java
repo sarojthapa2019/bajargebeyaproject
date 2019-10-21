@@ -124,7 +124,6 @@ public class BajargebeyaprojectApplication {
         productService.saveImage(i2);
         //user_seller, user_buyer, user_admin, product, category, image1, image2
 
-
         Review rv = new Review();
         rv.setApproved(true);
         rv.setDate(LocalDate.now());
@@ -137,9 +136,12 @@ public class BajargebeyaprojectApplication {
 
         Cart ca = new Cart();
         b.setCart(ca);
-        cartService.saveCart(ca);
         ca.setBuyer(b);
-//        ca.getProducts().add(p);
+        CartEntry ce = new CartEntry();
+        ce.setProduct(p);
+        ce.setQuantity(2);
+        ca.getCartEntries().add(ce);
+        cartService.saveCart(ca);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
