@@ -26,8 +26,9 @@ We use application properties as following for development and production enviro
 >*spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect*
 
 >**application.properties**
->*spring.profiles.active=dev  
-#spring.profiles.active=prod
+>>*spring.profiles.active=dev*
+***OR,***<
+>*spring.profiles.active=prod*
 ## Alternatives:
 There are numerous alternatives of mysql database server. Some of the best alternatives are listed below:
 +  AWS - Amazon Web Service (*Free for one year*)
@@ -39,6 +40,6 @@ There are numerous alternatives of mysql database server. Some of the best alter
 
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwODQ0MjE4MjgsLTE0NTg5NTYxODksNz
-UyNDM1Mjc5LDE0MTEwNzg4ODcsLTE3NjY1NDU3MDRdfQ==
+eyJoaXN0b3J5IjpbLTI4MDg1OTU4MCwtMTQ1ODk1NjE4OSw3NT
+I0MzUyNzksMTQxMTA3ODg4NywtMTc2NjU0NTcwNF19
 -->
