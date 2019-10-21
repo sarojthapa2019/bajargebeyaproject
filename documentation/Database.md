@@ -9,7 +9,7 @@ As per the project requirement we are using Mysql Server as our datasource.
 
 We use application properties as following for development and production environment.
 
-<u>For Development</u>
+<u>For Development</u> *(database, username and password are personalised)*
 >**application-dev.properties**
 >*spring.datasource.url=jdbc:mysql://remotemysql.com:3306/xtTDyNlrK1*  
 >*spring.datasource.username=xtTDyNlrK1*  
@@ -37,6 +37,6 @@ There are numerous alternatives of mysql database server. Some of the best alter
 
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0NDY0NjQzOTksLTE0NTg5NTYxODksNz
-UyNDM1Mjc5LDE0MTEwNzg4ODcsLTE3NjY1NDU3MDRdfQ==
+eyJoaXN0b3J5IjpbMTk0MjcyNDk4NiwtMTQ1ODk1NjE4OSw3NT
+I0MzUyNzksMTQxMTA3ODg4NywtMTc2NjU0NTcwNF19
 -->
