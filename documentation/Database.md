@@ -14,7 +14,12 @@ As per the project requirement we are using Mysql Server as our datasource.
 >*spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect*
 
 We use application properties as following for development and production environment.
--application-dev.properties (development)
+>**application-dev.properties**
+>*spring.datasource.url=jdbc:mysql://remotemysql.com:3306/xtTDyNlrK1*  
+>*spring.datasource.username=xtTDyNlrK1*  
+>*spring.datasource.password=ekCIK3eB8W*  
+>*spring.datasource.driver-class-name=com.mysql.jdbc.Driver*
+>*spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect*
 -application-prod.properties (production)
 
 ## Alternatives:
@@ -28,6 +33,6 @@ There are numerous alternatives of mysql database server. Some of the best alter
 
 > Copyright @ AwesomeGroup 2019.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzUyNDM1Mjc5LDE0MTEwNzg4ODcsLTE3Nj
-Y1NDU3MDRdfQ==
+eyJoaXN0b3J5IjpbLTE0NTg5NTYxODksNzUyNDM1Mjc5LDE0MT
+EwNzg4ODcsLTE3NjY1NDU3MDRdfQ==
 -->
