@@ -103,7 +103,7 @@ public class BajargebeyaprojectApplication {
         Cart ca = new Cart();
 
         ca.setBuyer(b);
-        ca.getProducts().add(p);
+//        ca.getProducts().add(p);
 
         b.setCart(ca);
 

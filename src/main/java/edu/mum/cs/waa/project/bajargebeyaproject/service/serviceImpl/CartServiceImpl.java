@@ -6,9 +6,15 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
+
+
+import java.util.Optional;
+
 @Service
 public class CartServiceImpl implements CartService {
-    @Autowired
+
     private CartRepo cartRepo;
     @Override
     public Cart saveCart(Cart cart) {
@@ -16,7 +22,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart removeCart(Cart cart) {
-        return null;
+    public void removeCart(Cart cart) {
+         cartRepo.delete(cart);
     }
+
+    @Override
+    public Optional<Cart> findByBuyer(Buyer buyer) {
+        return cartRepo.findByBuyer(buyer);
+
+    }
+
 }

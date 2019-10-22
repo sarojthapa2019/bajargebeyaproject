@@ -1,6 +1,6 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.Repository.UserRepo;
+import edu.mum.cs.waa.project.bajargebeyaproject.repository.UserRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
