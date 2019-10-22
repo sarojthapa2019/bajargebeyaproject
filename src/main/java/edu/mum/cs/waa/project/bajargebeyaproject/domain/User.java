@@ -1,13 +1,18 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +21,6 @@ public class User {
     private String firstName;
     private String lastName;
 
-//    @OneToOne(cascade = CascadeType.ALL)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "city", column = @Column(name = "bill_city")),
@@ -26,7 +30,6 @@ public class User {
             @AttributeOverride(name = "zipCode", column = @Column(name = "bill_zip"))
     })
     private Address billingAddress;
-//    @OneToOne(cascade = CascadeType.ALL)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "city", column = @Column(name = "mail_city")),
@@ -40,14 +43,24 @@ public class User {
     private Role role;
     private String email;
     private String password;
-    //@OneToOne(cascade = CascadeType.ALL)
     @Embedded
     private Account account;
-    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Notification> notifications = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)//, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Notification> notifications;
+    public User(){
+        notifications = new ArrayList<>();
+    }
 
     public User addNotification(Notification n) {
-        this.notifications.add(n);
+        this.getNotifications().add(n);
+        n.addReceiver(this);
+        User u = new User();
         return this;
+    }
+
+    @Override
+    public String toString(){
+        return this.firstName;
     }
 }

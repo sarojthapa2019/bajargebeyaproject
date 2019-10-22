@@ -49,8 +49,7 @@ public class BajargebeyaprojectApplication {
         Seller s = new Seller();
         s.setApproved(true);
         s.setUser(us);
-        userService.saveSeller(s);
-//        userService.save(us);
+        s = userService.saveSeller(s);
 
         User ub = new User();
         ub.setAccount(acc);
@@ -67,11 +66,9 @@ public class BajargebeyaprojectApplication {
         b.setReward(100);
         b.setUser(ub);
         b.setCart(new Cart());
-        userService.saveBuyer(b);
         s.getFollowers().add(b);
+        b = userService.saveBuyer(b);
         b.getFollowings().add(s);
-        //user_seller, user_buyer, buyer, user_admin, product, category, image1, image2
-        //user_seller, user_buyer
 
         User ua = new User();
         ua.setAccount(acc);
@@ -84,14 +81,13 @@ public class BajargebeyaprojectApplication {
         Role ra = new Role();
         ra.setRole("Admin");
         ua.setRole(ra);
-//        userService.save(ua);
         Admin a = new Admin();
         a.setUser(ua);
-        userService.saveAdmin(a);
+        a = userService.saveAdmin(a);
 
         Category c = new Category();
         c.setName("Electronics");
-        productService.saveCategory(c);
+        c = productService.saveCategory(c);
 
         Product p = new Product();
         p.setAnAdd(false);
@@ -105,7 +101,7 @@ public class BajargebeyaprojectApplication {
         s.getProducts().add(p);
         c.getProducts().add(p);
         p.getCategories().add(c);
-        productService.save(p);
+        p = productService.save(p);
 
         Image i = new Image();
         i.setProduct(p);
@@ -118,8 +114,8 @@ public class BajargebeyaprojectApplication {
         p.getImages().add(i);
         p.getImages().add(i2);
 
-        productService.saveImage(i);
-        productService.saveImage(i2);
+        i = productService.saveImage(i);
+        i2 = productService.saveImage(i2);
 
         Review rv = new Review();
         rv.setApproved(true);
@@ -129,16 +125,16 @@ public class BajargebeyaprojectApplication {
         rv.setProduct(p);
         p.getReviews().add(rv);
         rv.setBuyer(b);
-        reviewService.save(rv);
+        rv = reviewService.save(rv);
 
         Cart ca = b.getCart();
         CartEntry ce = new CartEntry();
         ce.setQuantity(2);
         ce.setCart(ca);
-        ce.setProduct(p);
+        ce.setProductId(p.getId());
         ca.getCartEntries().add(ce);
-        ca.setBuyer(b);
-        cartService.saveCart(ca);
+        //ca.setBuyer(b);
+        ca = cartService.saveCart(ca);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
@@ -148,7 +144,7 @@ public class BajargebeyaprojectApplication {
         po.getProducts().add(p);
         po.setBuyer(b);
         b.getProductOrders().add(po);
-        productService.saveOrder(po);
+        po = productService.saveOrder(po);
 
         Receipt rc = new Receipt();
         rc.setProductOrder(po);
@@ -166,7 +162,7 @@ public class BajargebeyaprojectApplication {
         }
         rc.setTotal(total);
         po.setReceipt(rc);
-        paymentService.saveReceipt(rc);
+        rc = paymentService.saveReceipt(rc);
 
         notificationService.notifyAll("Welcome to Awesome Shopping Site!","www.google.com");
         notificationService.notifyAdmins("Be alert of Hackers!","www.stackoverflow.com");

@@ -24,8 +24,8 @@ public class CartServiceImpl implements CartService {
         cartRepo.delete(cart);
     }
 
-    @Override
-    public Optional<Cart> findByBuyer(Buyer buyer) {
-        return cartRepo.findByBuyer(buyer);
-    }
+//    @Override
+//    public Optional<Cart> findByBuyer(Buyer buyer) {
+//        return cartRepo.findByBuyer(buyer);
+//    }
 }

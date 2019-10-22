@@ -7,6 +7,7 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.NotificationService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.PaymentService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,24 +29,44 @@ public class NotificationServiceImpl implements NotificationService {
     PaymentService paymentService;
 
     @Override
+    public Notification buildNotification(String noteMsg, String actionUrl) {
+        Notification note = new Notification();
+        note.setMessage(noteMsg);
+        note.setActionUrl(actionUrl);
+        note.setDate(LocalDate.now());
+        note.setPriority(0);
+        return note;
+    }
+
+    @Override
+    public boolean notify(Notification notification, User target) {
+        notification.addReceiver(target);
+        notification = notificationRepo.save(notification);
+        target.addNotification(notification);
+        userService.save(target);
+        System.out.println(target.toString()+notification.getMessage());
+//        notification.addReceiver(target);
+        return notification.getReceivers().contains(target);
+    }
+
+    @Override
     public boolean notify(String noteMsg, String actionUrl, User target) {
-        Notification n = new Notification();
-        n.setDate(LocalDate.now());
-        n.setMessage(noteMsg);
-        n.setPriority(0);
-        n.getReceivers().add(target);
-        n.setActionUrl(actionUrl);
+        Notification n = buildNotification(noteMsg, actionUrl);
+        n = notificationRepo.save(n);
         target.addNotification(n);
-        return (notificationRepo.save(n)!=null);
+        userService.save(target);
+        return true;
     }
 
     @Override
     public boolean notifyUsers(String noteMsg, String actionUrl, List<User> users) {
         boolean notified = false;
+        Notification n = buildNotification(noteMsg,actionUrl);
         for(User target: users){
-            notified = notify(noteMsg,actionUrl,target);
+            notified = notify(n,target);
             if(!notified)
                 return false;
+            System.out.println("Notifying... "+notified);
         }
 
         return true;
