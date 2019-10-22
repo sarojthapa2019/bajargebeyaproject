@@ -1,8 +1,12 @@
-package edu.mum.cs.waa.project.bajargebeyaproject.service;
+package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.NotificationRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Notification;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.NotificationService;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.PaymentService;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +35,7 @@ public class NotificationServiceImpl implements NotificationService {
         n.setPriority(0);
         n.getReceivers().add(target);
         n.setActionUrl(actionUrl);
-        target.getNotifications().add(n);
+        target.addNotification(n);
         return (notificationRepo.save(n)!=null);
     }
 

@@ -14,9 +14,9 @@ public class Seller {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seller")
+    @OneToMany(mappedBy = "seller")//(cascade = CascadeType.ALL, mappedBy = "seller")
     private List<Product> products = new ArrayList<>();
     private boolean isApproved;
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "followings")
+    @ManyToMany(mappedBy = "followings")//(cascade = CascadeType.ALL, mappedBy = "followings")
     private List<Buyer> followers = new ArrayList<>();
 }

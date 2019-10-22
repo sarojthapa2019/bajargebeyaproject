@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,5 +19,5 @@ public class Notification {
     private LocalDate date;
     private Integer priority;
     @ManyToMany(mappedBy = "notifications")
-    private List<User> receivers;
+    private List<User> receivers = new ArrayList<>();
 }

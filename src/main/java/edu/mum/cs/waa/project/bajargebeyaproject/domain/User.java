@@ -43,6 +43,11 @@ public class User {
     //@OneToOne(cascade = CascadeType.ALL)
     @Embedded
     private Account account;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Notification> notifications = new ArrayList<>();
+
+    public User addNotification(Notification n) {
+        this.notifications.add(n);
+        return this;
+    }
 }

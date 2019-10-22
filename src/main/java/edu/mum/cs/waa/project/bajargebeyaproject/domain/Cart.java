@@ -16,7 +16,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private Buyer buyer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
-    private List<CartEntry> cartEntries;
+    private List<CartEntry> cartEntries = new ArrayList<>();
 
     public Cart(){
         cartEntries = new ArrayList<CartEntry>();
