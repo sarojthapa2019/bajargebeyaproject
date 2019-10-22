@@ -9,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.Map;
 
 @Controller
 @SessionAttributes({"user"})
-public class UserController {
-
+public class DashboardController {
     @Autowired
     UserService userService;
 
@@ -30,20 +28,25 @@ public class UserController {
     @Autowired
     ProductService productService;
 
-    @GetMapping("/")
-    public String index(Model model){
-        mockLogin(model, 1l);
-        return "index";
-    }
+    @GetMapping("/dashboard")
+    public String getDashboard(Model model){
+        Map<String, Object> modelMap = model.asMap();
+        if(modelMap.containsKey("user")){
+            User u = (User)modelMap.get("user");
+            switch(u.getRole().getRole()){
+                case "Admin":
+                    model.addAttribute("Sellers",userService.getSellers());//.getSellerByApproved(false));
+                    model.addAttribute("Reviews", reviewService.getReviews());//.getReviewsByApproved(false));
+                    model.addAttribute("Products",productService.getProducts());//.getProductByAds(false));
+                    break;
+                case "Buyer":
+                    model.addAttribute("reward", userService.get)
 
-    @GetMapping("/{id}")
-    public String indexUser(@PathVariable("id") Long id, Model model){
-        mockLogin(model, id);
-        return "index";
-    }
+                case "Seller":
+            }
 
-    private void mockLogin(Model model, Long id) {
-        model.addAttribute("user", userService.findById(id));
+            return "dashboard";
+        }
+        return "login";
     }
-
 }

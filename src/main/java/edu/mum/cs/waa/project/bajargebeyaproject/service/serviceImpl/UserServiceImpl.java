@@ -78,7 +78,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Seller> getSellerByApproved(boolean b) {
+        return sellerRepo.findByApproved(b);
+    }
+
+    @Override
     public Admin getAdminById(Long id) {
         return adminRepo.getOne(id);
+    }
+
+    @Override
+    public List<Seller> getSellers() {
+        return (List)sellerRepo.findAll();
     }
 }

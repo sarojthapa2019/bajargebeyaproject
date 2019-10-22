@@ -12,6 +12,7 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +54,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Image saveImage(Image i) {
         return imageRepo.save(i);
+    }
+
+    @Override
+    public List<Product> getProductByAds(boolean b) {
+        return productRepo.findByAnAdd(b);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return (List)productRepo.findAll();
     }
 
 }

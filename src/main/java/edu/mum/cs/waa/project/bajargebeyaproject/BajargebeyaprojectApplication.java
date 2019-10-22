@@ -85,6 +85,11 @@ public class BajargebeyaprojectApplication {
         a.setUser(ua);
         a = userService.saveAdmin(a);
 
+        addUser(userService,"Sujiv", "Admin");
+        addUser(userService,"Saroj", "Seller");
+        addUser(userService,"Sanjay", "Seller");
+        addUser(userService,"Surafel", "Seller");
+
         Category c = new Category();
         c.setName("Electronics");
         c = productService.saveCategory(c);
@@ -169,5 +174,43 @@ public class BajargebeyaprojectApplication {
         notificationService.notifyBuyers("Cheap Sales. Hurry up","www.github.com");
         notificationService.notifySellers("Buyers out on market!","www.amazon.com");
         notificationService.notify("Test notice","/",b.getUser());
+    }
+
+    private static User addUser(UserService us, String fn, String rol) {
+        User ub = new User();
+//        ub.setAccount(acc);
+//        ub.setBillingAddress(add);
+        ub.setEmail("pqr@mum.edu");
+        ub.setFirstName(fn);
+        ub.setLastName("user");
+//        ub.setMailingAddress(add);
+        ub.setPassword("");
+        Role rb = new Role();
+        rb.setRole(rol);
+        ub.setRole(rb);
+        switch(rol){
+            case "Admin":
+                Admin a = new Admin();
+                a.setUser(ub);
+                us.saveAdmin(a);
+                ub = a.getUser();
+                break;
+            case "Buyer":
+                Buyer b = new Buyer();
+                b.setUser(ub);
+                b.setCart(new Cart());
+                b.setReward(0);
+                us.saveBuyer(b);
+                ub = b.getUser();
+                break;
+            case "Seller":
+                Seller s = new Seller();
+                s.setApproved(false);
+                s.setUser(ub);
+                us.saveSeller(s);
+                ub = s.getUser();
+            default:
+        }
+        return ub;
     }
 }

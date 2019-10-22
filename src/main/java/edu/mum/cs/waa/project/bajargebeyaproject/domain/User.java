@@ -48,6 +48,12 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)//, fetch=FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Notification> notifications;
+    @Transient
+    private transient int notificationCount;
+
+    public int getNotificationCount(){
+        return notifications.size();
+    }
     public User(){
         notifications = new ArrayList<>();
     }

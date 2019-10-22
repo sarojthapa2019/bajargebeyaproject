@@ -27,5 +27,9 @@ public interface UserService {
 
     public Seller getSellerById(Long id);
 
+    public List<Seller> getSellerByApproved(boolean b);
+
     public Admin getAdminById(Long id);
+
+    public List<Seller> getSellers();
 }

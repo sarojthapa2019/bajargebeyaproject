@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.role.role+' Dashboard'}">Dashboard</title>
+</head>
+<body>
+
+<div layout:fragment="main">
+    <!-- Home -->
+
+    <div class="home">
+        <div class="section_title"><!--/*@thymesVar id="role" type="user"*/-->
+            <span th:text="${user.role.role+' Dashboard'}"> Dashboard</span>
+        </div>
+        <!-- Admin DashBoard Tables-->
+        <div th:if="${user.role.role=='Admin'}">
+            <!-- Seller Approval-->
+            <div class="section_title">Sellers Information</div>
+            <table class="dashboard">
+                <thead>
+                    <tr>
+                        <th class="t_head">Name</th><th class="t_head">Address</th><th class="t_head">Approval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="seller:${Sellers}">
+                    <tr>
+                        <td class="t_data"><span th:text="${seller.user.firstName}">First Name</span><span th:text="${seller.user.lastName}">Last Name</span></td>
+                        <td class="t_data"><span th:text="${seller.user.getMailingAddress().getStreet()}+', '+${seller.user.getMailingAddress().getCity()}"></td>
+                        <td class="t_data"><div class="button" th:onclick="sellerApprove(!${seller.isApproved()})" ><a href="#" th:text="${seller.isApproved()}?Disable:Enable">Press</a></a> </div> </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Products -->
+
+    <div th:replace="layout/products :: products"></div>
+
+</div>
+</body>
+</html>
