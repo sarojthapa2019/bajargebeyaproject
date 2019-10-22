@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {
-
+    @Autowired
     private CartRepo cartRepo;
     @Override
     public Cart saveCart(Cart cart) {
@@ -26,10 +26,10 @@ public class CartServiceImpl implements CartService {
          cartRepo.delete(cart);
     }
 
-    @Override
-    public Optional<Cart> findByBuyer(Buyer buyer) {
-        return cartRepo.findByBuyer(buyer);
-
-    }
+//    @Override
+//    public Optional<Cart> findByBuyer(Buyer buyer) {
+//        return cartRepo.findByBuyer(buyer);
+//
+//    }
 
 }

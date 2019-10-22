@@ -179,6 +179,19 @@ $(document).ready(function()
 							newValue = original - 1;
 						}
 					num.text(newValue);
+
+					$.ajax ({
+						url: '/cart/items/quantity'+2,
+						type: "GET",
+						dataType: "json",
+						contentType: "application/json",
+
+						complete: function(responseData, status, xhttp){
+							console.log(responseData);
+							$('#cart-item-count').text('('+responseData.responseJSON.count+')');
+						}
+					});
+
 				});
 
 				add.on('click', function()

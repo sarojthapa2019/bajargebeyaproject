@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Buyer getBuyerById(Long id) {
-        return null;
+        return buyerRepo.getOne(id);
     }
 
     @Override

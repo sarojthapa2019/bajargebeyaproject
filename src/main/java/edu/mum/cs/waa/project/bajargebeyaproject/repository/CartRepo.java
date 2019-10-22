@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface CartRepo extends JpaRepository<Cart, Long> {
 
-    Optional<Cart> findByBuyer(Buyer buyer);
+//    Optional<Cart> findByBuyer(Buyer buyer);
 }

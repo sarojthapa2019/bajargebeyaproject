@@ -1,6 +1,10 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,10 +17,11 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(mappedBy = "cart")
-    private Buyer buyer;
+//    @OneToOne(mappedBy = "cart")
+//    private Buyer buyer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
-    private List<CartEntry> cartEntries = new ArrayList<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<CartEntry> cartEntries;
 
     public Cart(){
         cartEntries = new ArrayList<CartEntry>();
@@ -24,15 +29,18 @@ public class Cart {
     //for adding each cartEntry in cart
     public void addEntry(Product product){
         for(CartEntry cartEntry: cartEntries){
+            System.out.println(cartEntry.getId());
             if(cartEntry.getProduct().getId()==product.getId()){
                 cartEntry.setQuantity(cartEntry.getQuantity()+1);
                 return;
             }
         }
-        CartEntry cartEntry = new CartEntry();
+        CartEntry cartEntry = new CartEntry(this);
         cartEntry.setProduct(product);
         cartEntry.setQuantity(1);
-        this.cartEntries.add(cartEntry);
+        this.getCartEntries().add(cartEntry);
+
+
     }
 
     public void updateProductQuantity(Product product, int quantity){

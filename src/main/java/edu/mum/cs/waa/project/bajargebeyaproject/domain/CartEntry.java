@@ -15,4 +15,17 @@ public class CartEntry {
     private int quantity;
     @ManyToOne
     private Cart cart;
+
+    public CartEntry(){}
+    public CartEntry(Cart cart){
+        this.cart = cart;
+    }
+
+    //for subtotal of cartEntry
+
+    public Double getSubTotal(){
+        double subTotal = 0.0;
+       subTotal = this.product.getUnitPrice() * this.quantity;
+       return subTotal;
+    }
 }

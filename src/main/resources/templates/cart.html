@@ -9,6 +9,7 @@
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
 <!--    <link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">-->
 <!--    <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script rel="script" src="js/cart.js"></script>
     <link rel="stylesheet" type="text/css" href="styles/cart.css">
     <link rel="stylesheet" type="text/css" href="styles/cart_responsive.css">
@@ -45,8 +46,8 @@
                         <div class="cart_bar">
                             <ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
                                 <li class="mr-auto">Product</li>
-                                <li>Color</li>
-                                <li>Size</li>
+                                <li>Discount</li>
+                                <li>Tax</li>
                                 <li>Price</li>
                                 <li>Quantity</li>
                                 <li>Total</li>
@@ -58,16 +59,16 @@
                             <ul class="cart_items_list">
                             <!--if there are no items yet -->
                                 <li th:if="${#lists.isEmpty(cart.cartEntries)}"><span>No items in the cart</span></li>
-
+                                <div th:each="item, iter : ${cart.cartEntries}" th:id="${item.product.id}">
                                 <!-- Cart Item -->
                                 <li th:unless="${#lists.isEmpty(cart.cartEntries)}" class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
-                                    <div th:each="item, iter : ${cart.cartEntries}" th:id="${item.product.id}">
+
                                     <div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
                                         <div>
                                             <div class="product_number" th:text="${iter.count}">1</div>
                                         </div>
                                         <div>
-                                            <div class="product_image"><img th:src="${item.product.images.get(1)}" src="images/cart_item_1.jpg" alt=""></div>
+                                            <div class="product_image"><img th:if="${item.product.images.size()>0}" th:src="${item.product.images[0].url}" src="images/cart_item_1.jpg" alt=""></div>
                                         </div>
                                         <div class="product_name_container">
                                             <div class="product_name"><a th:href="@{'/product/detail/'+${item.product.id}}" th:text="${item.product.name}">Cool Flufy Clothing without
@@ -80,13 +81,14 @@
                                     <div class="product_price product_text" th:text="${item.product.unitPrice}"><span>Price: $</span>3.99</div>
                                     <div class="product_quantity_container">
                                         <div class="product_quantity ml-lg-auto mr-lg-auto text-center">
-                                            <span class="product_text product_num">1</span>
+                                            <span class="product_text product_num"  th:text="${item.quantity}">1</span>
                                             <div class="qty_sub qty_button trans_200 text-center"><span>-</span></div>
                                             <div class="qty_add qty_button trans_200 text-center"><span>+</span></div>
                                         </div>
                                     </div>
-                                    </div>
-                                    <div class="product_total product_text" th:text="${cart.totalAmount}"><span>Total: $</span>3.99</div>
+
+                                    <div class="product_total product_text" th:text="${item.subTotal}"><span>Total: $</span>3.99</div>
+                                </div>
                                 </li>
                             </ul>
                         </div>

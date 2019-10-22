@@ -55,4 +55,9 @@ public class ProductServiceImpl implements ProductService {
         return imageRepo.save(i);
     }
 
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepo.findById(id);
+    }
+
 }

@@ -8,12 +8,13 @@ $(document).ready(function () {
        alert(productId);
 
        $.ajax ({
-           url: '/cart/items/'+productId,
-           type: "POST",
+           url: '/cart/items/'+2,
+           type: "GET",
            dataType: "json",
            contentType: "application/json",
 
            complete: function(responseData, status, xhttp){
+               console.log(responseData);
                $('#cart-item-count').text('('+responseData.responseJSON.count+')');
            }
        });
