@@ -43,12 +43,15 @@ public class Cart {
 
     }
 
-    public void updateProductQuantity(Product product, int quantity){
-        for(CartEntry cartEntry: cartEntries){
+    public CartEntry updateProductQuantity(Product product, int quantity){
+        CartEntry c = null;
+        for( CartEntry cartEntry: cartEntries){
             if(cartEntry.getProduct().getId()==product.getId()){
-                cartEntry.setQuantity(cartEntry.getQuantity()+1);
+                cartEntry.setQuantity(quantity);
+                return cartEntry;
             }
         }
+        return c;
     }
      public void removeEntry(Long id){
         CartEntry c = null;

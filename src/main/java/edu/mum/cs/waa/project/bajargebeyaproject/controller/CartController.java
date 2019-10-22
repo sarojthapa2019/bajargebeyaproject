@@ -1,5 +1,7 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Cart;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.CartEntry;
@@ -8,12 +10,14 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.CartService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @SessionAttributes({"user","cart"})
 @Controller
@@ -94,4 +98,38 @@ public class CartController {
         return map;
     }
 
+
+    //for changing the quantity of each products in a cart entry
+    @PostMapping("/cart/items/quantity")
+    @ResponseBody
+    public CartEntry updateQuantity(@RequestBody String  data, Model model)  {
+        CartEntry cartEntry = null;
+        Gson gson = new Gson();
+        Map<String, Double> pair = gson.fromJson(data, Map.class);
+        System.out.println(pair.get("itemId"));
+        Long id = pair.get("itemId").longValue();
+        int quantity = pair.get("quantity").intValue();
+        Cart cart = (Cart)model.asMap().get("cart");
+        cartEntry = cart.updateProductQuantity(productService.findById(id).get(),quantity);
+        return cartEntry;
+
+    }
+    //for clearing cart items
+    @GetMapping("/cart/clear")
+    public String clearCart(Model model){
+        if((Cart)model.asMap().get("cart") != null){
+            Cart cart= (Cart)model.asMap().get("cart");
+            cart.getCartEntries().clear();
+
+        }
+
+        return "redirect:/index";
+    }
+
+    //goto checkout
+
+    @GetMapping("/cart/checkout")
+    public String checkOut(){
+        return "checkout";
+    }
 }

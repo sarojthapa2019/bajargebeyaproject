@@ -179,16 +179,22 @@ $(document).ready(function()
 							newValue = original - 1;
 						}
 					num.text(newValue);
-
+					alert(num.attr("data"));
+					let itemId = num.attr("data");
+					var data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+                    // console.log("normalData: "+data);
+                    // console.log("stringgyfy"  +JSON.stringify(data));
+					//for updating item number
 					$.ajax ({
-						url: '/cart/items/quantity'+2,
-						type: "GET",
+						url: '/cart/items/quantity',
+						type: "POST",
 						dataType: "json",
 						contentType: "application/json",
+						data: data,
 
 						complete: function(responseData, status, xhttp){
 							console.log(responseData);
-							$('#cart-item-count').text('('+responseData.responseJSON.count+')');
+
 						}
 					});
 
@@ -199,6 +205,21 @@ $(document).ready(function()
 					original = parseFloat(qty.find('.product_num').text());
 					newValue = original + 1;
 					num.text(newValue);
+					let itemId = num.attr("data");
+					var data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+//for updating item number
+					$.ajax ({
+						url: '/cart/items/quantity',
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data:data,
+
+						complete: function(responseData, status, xhttp){
+							console.log(responseData);
+
+						}
+					});
 				});
 			});
 		}

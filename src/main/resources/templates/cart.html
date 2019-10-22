@@ -78,16 +78,16 @@
                                     </div>
                                     <div class="product_color product_text" th:text="${item.product.discount}"><span>Discount: </span>5%</div>
                                     <div class="product_size product_text" th:text="${item.product.tax}"><span>Tax: </span>15%</div>
-                                    <div class="product_price product_text" th:text="${item.product.unitPrice}"><span>Price: $</span>3.99</div>
+                                    <div class="product_price product_text" th:text="'$'+${item.product.unitPrice}"><span>Price: $</span>3.99</div>
                                     <div class="product_quantity_container">
                                         <div class="product_quantity ml-lg-auto mr-lg-auto text-center">
-                                            <span class="product_text product_num"  th:text="${item.quantity}">1</span>
+                                            <span class="product_text product_num " th:data="${item.id}"   th:text="${item.quantity}">1</span>
                                             <div class="qty_sub qty_button trans_200 text-center"><span>-</span></div>
                                             <div class="qty_add qty_button trans_200 text-center"><span>+</span></div>
                                         </div>
                                     </div>
 
-                                    <div class="product_total product_text" th:text="${item.subTotal}"><span>Total: $</span>3.99</div>
+                                    <div class="product_total product_text" th:text="'$'+${item.subTotal}"><span>Total: $</span>3.99</div>
                                 </div>
                                 </li>
                             </ul>
@@ -96,9 +96,9 @@
                         <!-- Cart Buttons -->
                         <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
                             <div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
-                                <div class="button button_clear trans_200"><a href="categories.html">clear cart</a>
+                                <div class="button button_clear trans_200"><a th:href="@{'/cart/clear'}">clear cart</a>
                                 </div>
-                                <div class="button button_continue trans_200"><a href="categories.html">continue
+                                <div class="button button_continue trans_200"><a th:href="@{/index}">continue
                                     shopping</a></div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                 <div class="col-lg-6">
                     <div class="cart_extra cart_extra_1">
                         <div class="cart_extra_content cart_extra_coupon">
-                            <div class="cart_extra_title">Coupon code</div>
+                            <div class="cart_extra_title">Reward</div>
                             <div class="coupon_form_container">
                                 <form action="#" id="coupon_form" class="coupon_form">
                                     <input type="text" class="coupon_input" required="required">
@@ -129,7 +129,7 @@
                                             <span class="radio_mark"></span>
                                             <span class="radio_text">Next day delivery</span>
                                         </label>
-                                        <div class="shipping_price ml-auto">$4.99</div>
+                                        <div class="shipping_price ml-auto">Free</div>
                                     </li>
                                     <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                         <label class="radio_container">
@@ -138,7 +138,7 @@
                                             <span class="radio_mark"></span>
                                             <span class="radio_text">Standard delivery</span>
                                         </label>
-                                        <div class="shipping_price ml-auto">$1.99</div>
+                                        <div class="shipping_price ml-auto">Free</div>
                                     </li>
                                     <li class="shipping_option d-flex flex-row align-items-center justify-content-start">
                                         <label class="radio_container">
@@ -161,7 +161,7 @@
                             <ul class="cart_extra_total_list">
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_extra_total_title">Subtotal</div>
-                                    <div class="cart_extra_total_value ml-auto">$29.90</div>
+                                    <div class="cart_extra_total_value ml-auto" th:text="'$'+${cart.totalAmount}">$29.90</div>
                                 </li>
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_extra_total_title">Shipping</div>
@@ -169,10 +169,10 @@
                                 </li>
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_extra_total_title">Total</div>
-                                    <div class="cart_extra_total_value ml-auto">$29.90</div>
+                                    <div class="cart_extra_total_value ml-auto" th:text="'$'+${cart.totalAmount}">$29.90</div>
                                 </li>
                             </ul>
-                            <div class="checkout_button trans_200"><a href="checkout.html">proceed to checkout</a></div>
+                            <div class="checkout_button trans_200"><a th:href="@{'/cart/checkout'}">proceed to checkout</a></div>
                         </div>
                     </div>
                 </div>

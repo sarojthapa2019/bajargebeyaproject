@@ -1,6 +1,8 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,5 +16,6 @@ public class Category {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "categories")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Product> products = new ArrayList<>();
 }
