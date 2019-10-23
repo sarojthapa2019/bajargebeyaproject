@@ -13,7 +13,7 @@ public class BajargebeyaprojectApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BajargebeyaprojectApplication.class, args);
-        dataLoader(context);
+       // dataLoader(context);
     }
 
     public static void dataLoader(ApplicationContext context){
@@ -93,19 +93,9 @@ public class BajargebeyaprojectApplication {
         c.setName("Electronics");
         productService.saveCategory(c);
 
-        Product p = new Product();
-        p.setAnAdd(false);
-        p.setDescription("HP Laptop");
-        p.setDiscount(0.0);
-        p.setTax(0.0);
-        p.setName("Laptop");
-        p.setUnit("pcs.");
-        p.setStock(5);
-        p.setSeller(us);
-        s.getProducts().add(p);
-        c.getProducts().add(p);
-        p.getCategories().add(c);
-        productService.save(p);
+        Product p = addProduct(productService, us, s, c, "HP");
+
+        Product p2 = addProduct(productService, us, s, c, "Dell");
 
         Image i = new Image();
         i.setProduct(p);
@@ -132,46 +122,63 @@ public class BajargebeyaprojectApplication {
         reviewService.save(rv);
 
         Cart ca = b.getCart();
-        CartEntry ce = new CartEntry();
+        CartEntry ce = new CartEntry(ca);
         ce.setQuantity(2);
         ce.setCart(ca);
         ce.setProduct(p);
         ca.getCartEntries().add(ce);
-        ca.setBuyer(b);
+//        ca.setBuyer(b);
         cartService.saveCart(ca);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
-        po.setQuantity(2);
+//        po.setQuantity(2);
         po.setShippingAddress(add);
         po.setStatus("delivered");
-        po.getProducts().add(p);
+//        po.getProducts().add(p);
         po.setBuyer(b);
         b.getProductOrders().add(po);
         productService.saveOrder(po);
 
-        Receipt rc = new Receipt();
-        rc.setProductOrder(po);
-        double total = 0.0;
-        for(Product pr: po.getProducts()){
-            ReceiptEntry re = new ReceiptEntry();
-            re.setDiscount(pr.getDiscount());
-            re.setPrice(pr.getUnitPrice());
-            re.setProductName(pr.getName());
-            re.setQuantity(1);
-            re.setTax(pr.getTax());
-            re.setReceipt(rc);
-            rc.getReceiptEntries().add(re);
-            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
-        }
-        rc.setTotal(total);
-        po.setReceipt(rc);
-        paymentService.saveReceipt(rc);
+//        Receipt rc = new Receipt();
+//        rc.setProductOrder(po);
+//        double total = 0.0;
+//        for(Product pr: po.getProducts()){
+//            ReceiptEntry re = new ReceiptEntry();
+//            re.setDiscount(pr.getDiscount());
+//            re.setPrice(pr.getUnitPrice());
+//            re.setProductName(pr.getName());
+//            re.setQuantity(1);
+//            re.setTax(pr.getTax());
+//            re.setReceipt(rc);
+//            rc.getReceiptEntries().add(re);
+//            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
+//        }
+//        rc.setTotal(total);
+//        po.setReceipt(rc);
+//        paymentService.saveReceipt(rc);
 
         notificationService.notifyAll("Welcome to Awesome Shopping Site!","www.google.com");
         notificationService.notifyAdmins("Be alert of Hackers!","www.stackoverflow.com");
         notificationService.notifyBuyers("Cheap Sales. Hurry up","www.github.com");
         notificationService.notifySellers("Buyers out on market!","www.amazon.com");
         notificationService.notify("Test notice","/",b.getUser());
+    }
+
+    private static Product addProduct(ProductService productService, User us, Seller s, Category c, String name) {
+        Product p = new Product();
+        p.setAnAdd(false);
+        p.setDescription("HP Laptop");
+        p.setDiscount(0.0);
+        p.setTax(0.0);
+        p.setName(name);
+        p.setUnit("pcs.");
+        p.setStock(5);
+        p.setSeller(us);
+        s.getProducts().add(p);
+        c.getProducts().add(p);
+        p.getCategories().add(c);
+        productService.save(p);
+        return p;
     }
 }

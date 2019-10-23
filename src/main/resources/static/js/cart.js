@@ -179,6 +179,37 @@ $(document).ready(function()
 							newValue = original - 1;
 						}
 					num.text(newValue);
+
+					let itemId = num.attr("data");
+					var data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+
+					//for updating item number
+					$.ajax ({
+						url: '/cart/items/quantity',
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data: '{"itemId": '+itemId+', "quantity":'+newValue+' }',
+
+						success: function(responseData, status, xhttp){
+							console.log(responseData);
+
+
+							 num.text(responseData.quantity);
+							 $('#cartTotal').text(responseData.total);
+							 $('#cardExtraTotal').text(responseData.total);
+							$('#cart-item-count').text(responseData.totalQuantity);
+
+							let divId = 'subTotal'+responseData.itemId;
+							console.log(divId);
+							let sub = document.getElementById('divId');
+							$('#'+divId).text(responseData.itemTotal);
+						},
+						error: function (err) {
+							console.log(err);
+						}
+					});
+
 				});
 
 				add.on('click', function()
@@ -186,6 +217,36 @@ $(document).ready(function()
 					original = parseFloat(qty.find('.product_num').text());
 					newValue = original + 1;
 					num.text(newValue);
+					let itemId = num.attr("data");
+					let data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+
+
+				//for updating item number
+					$.ajax ({
+						url: '/cart/items/quantity',
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data: '{"itemId": '+itemId+', "quantity":'+newValue+' }',
+
+						success: function(responseData){
+							console.log(responseData);
+
+							num.text(responseData.quantity);
+							$('#cartTotal').text(responseData.total);
+							$('#cardExtraTotal').text(responseData.total);
+							$('#cart-item-count').text(responseData.totalQuantity);
+
+							let divId = 'subTotal'+responseData.itemId;
+							console.log(divId);
+							let sub = document.getElementById('divId');
+							$('#'+divId).text(responseData.itemTotal);
+
+						},
+						error: function (err) {
+							console.log(err);
+						}
+					});
 				});
 			});
 		}

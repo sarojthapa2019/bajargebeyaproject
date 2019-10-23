@@ -1,9 +1,6 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Category;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Image;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Product;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.ProductOrder;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.CategoryRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.ImageRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.ProductOrderRepo;
@@ -12,6 +9,7 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +51,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Image saveImage(Image i) {
         return imageRepo.save(i);
+    }
+
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepo.findById(id);
+    }
+
+    @Override
+    public List<ProductOrder> getAllProductOrderByBuyer(Buyer buyer) {
+        return productOrderRepo.getAllByBuyer(buyer);
+    }
+
+    @Override
+    public void deleteProductOrder(ProductOrder productOrder) {
+        productOrderRepo.delete(productOrder);
+    }
+
+    @Override
+    public ProductOrder findProductOrderById(Long id) {
+        return productOrderRepo.getOne(id);
     }
 
 }

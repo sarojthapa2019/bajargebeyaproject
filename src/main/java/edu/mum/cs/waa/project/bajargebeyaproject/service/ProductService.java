@@ -1,9 +1,9 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Category;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Image;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Product;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.ProductOrder;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -16,4 +16,12 @@ public interface ProductService {
     public Category getCategoryById(Long id);
 
     public Image saveImage(Image i);
+
+    public Optional<Product> findById(Long id);
+
+    public List<ProductOrder> getAllProductOrderByBuyer(Buyer buyer);
+
+    public void deleteProductOrder(ProductOrder productOrder);
+
+    public ProductOrder findProductOrderById(Long id);
 }
