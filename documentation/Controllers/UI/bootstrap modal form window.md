@@ -45,7 +45,15 @@
      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
      </div> </div> </form> </div> </div></div>
 
+### the javascript submit button handler
+
+    <script type="text/javascript">  
+      function form_submit() {  
+            document.getElementById("add_review").submit();  
+      }  
+    </script>
+
 > Written with [StackEdit](https://stackedit.io/).
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE5Nzc3NzM4NV19
+eyJoaXN0b3J5IjpbODEzNDIzMTFdfQ==
 -->
