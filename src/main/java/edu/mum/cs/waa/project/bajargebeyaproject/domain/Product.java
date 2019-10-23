@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
+    @NotEmpty
     @ManyToMany//(cascade = CascadeType.ALL)
-    private List<Category> categories = new ArrayList<>();
+    private List<@NotEmpty Category> categories = new ArrayList<>();
     private double unitPrice;
     @ManyToOne//(cascade = CascadeType.ALL)
     private User seller;
@@ -31,5 +35,4 @@ public class Product {
     private List<Image> images = new ArrayList<>();
     @OneToMany(mappedBy = "product")//, cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
-
 }

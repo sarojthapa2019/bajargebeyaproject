@@ -16,6 +16,7 @@ public class CartEntry {
     private int quantity;
     @Nullable
     private String status;
+
     @ManyToOne
     private Cart cart;
     @ManyToOne(cascade = CascadeType.ALL)
