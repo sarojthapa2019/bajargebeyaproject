@@ -81,6 +81,12 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
+        <!-- Paypal sdk  -->
+        <dependency>
+            <groupId>com.paypal.sdk</groupId>
+            <artifactId>rest-api-sdk</artifactId>
+            <version>LATEST</version>
+        </dependency>
 
         <!--        <dependency>-->
 <!--            <groupId>org.springframework.security</groupId>-->
