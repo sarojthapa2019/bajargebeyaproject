@@ -69,9 +69,6 @@ public class CheckoutController {
 
         cart = cartService.saveCart(cart);
 
-
-
-
         model.addAttribute("productOrders", productService.getAllProductOrderByBuyer(buyer));
         return "redirect:/order/list";
     }

@@ -8,7 +8,7 @@ $(document).ready(function () {
        // alert(productId);
 
        $.ajax ({
-           url: '/cart/items/'+1,
+           url: '/cart/items/'+2,
            type: "GET",
            dataType: "json",
            contentType: "application/json",

@@ -119,7 +119,9 @@ public class CartController {
         map.put("total", cart.getTotalAmount());
         map.put("itemId", cartEntry.getId());
         map.put("quantity", cartEntry.getQuantity());
-        map.put("totalQuantity", cart.getTotalItems());
+        map.put("" +
+                "" +
+                "", cart.getTotalItems());
         return map;
 
     }
