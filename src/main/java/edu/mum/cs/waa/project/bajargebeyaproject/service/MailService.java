@@ -1,10 +1,9 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import java.io.IOException;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.Email;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
 
 public interface MailService {
-    public void sendMail() throws AddressException, MessagingException, IOException;
-    public void sendMail2();
+    public void sendMail(Email email) throws Exception;
+    public void sendMail(User receiver, String subject, String message);
 }

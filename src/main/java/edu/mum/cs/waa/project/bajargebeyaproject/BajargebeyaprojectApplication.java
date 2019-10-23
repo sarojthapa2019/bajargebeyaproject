@@ -12,41 +12,52 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
-import java.util.Properties;
 
 @SpringBootApplication
 public class BajargebeyaprojectApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BajargebeyaprojectApplication.class, args);
-        dataLoader(context);
+        //dataLoader(context);
+//        MailService mailService = context.getBean(MailService.class);
+//        try {
+//            Email email = new Email();
+//            email.setSubject("Application starts");
+//            email.setMessage("App has started");
+//            email.addReceiver("sujiv.shrestha@mum.edu");
+////            email.addReceiver("sujiv.sth@outlook.com");
+////            email.addReceiver("sujiv.sth@gmail.com");
+//            mailService.sendMail(email);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Bean
     public JavaMailSender getJavaMailSender() throws GeneralSecurityException {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.office365.com");//"smtp.gmail.com");
-        mailSender.setPort(587);
-
-        mailSender.setUsername("sujiv.sth@outlook.com");
-        mailSender.setPassword("Suzeve76");
-
-        MailSSLSocketFactory sf = new MailSSLSocketFactory();
-        sf.setTrustAllHosts(true);
-        System.setProperty("javax.net.ssl.trustStore", "E:/");
-        System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.7.0_17/jre/lib/security/cacerts");
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.imap.ssl.trust", "*");
-        props.put("mail.imap.ssl.socketFactory", sf);
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
-        props.put("mail.smtp.host", "smtp.outlook.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.user", "sujiv.sth@outlook.com");
-        props.put("mail.password", "Suzeve76");
+//        mailSender.setHost("smtp.office365.com");//"smtp.gmail.com");
+//        mailSender.setPort(587);
+//
+//        mailSender.setUsername("sujiv.sth@outlook.com");
+//        mailSender.setPassword("Suzeve76");
+//
+//        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+//        sf.setTrustAllHosts(true);
+//        System.setProperty("javax.net.ssl.trustStore", "E:/");
+//        System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.7.0_17/jre/lib/security/cacerts");
+//        Properties props = mailSender.getJavaMailProperties();
+//        props.put("mail.imap.ssl.trust", "*");
+//        props.put("mail.imap.ssl.socketFactory", sf);
+//        props.put("mail.transport.protocol", "smtp");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.debug", "true");
+//        props.put("mail.smtp.host", "smtp.outlook.com");
+//        props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.user", "sujiv.sth@outlook.com");
+//        props.put("mail.password", "Suzeve76");
 
         return mailSender;
     }
@@ -82,7 +93,7 @@ public class BajargebeyaprojectApplication {
         r.setRole("Seller");
         us.setRole(r);
         Seller s = new Seller();
-        s.setApproved(true);
+        s.setIsApproved(true);
         s.setUser(us);
         s = userService.saveSeller(s);
 
@@ -240,7 +251,7 @@ public class BajargebeyaprojectApplication {
                 break;
             case "Seller":
                 Seller s = new Seller();
-                s.setApproved(false);
+                s.setIsApproved(false);
                 s.setUser(ub);
                 us.saveSeller(s);
                 ub = s.getUser();

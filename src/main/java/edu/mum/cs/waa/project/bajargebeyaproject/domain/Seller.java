@@ -16,7 +16,7 @@ public class Seller {
     private User user;
     @OneToMany(mappedBy = "seller")//(cascade = CascadeType.ALL, mappedBy = "seller")
     private List<Product> products = new ArrayList<>();
-    private boolean isApproved;
+    private Boolean isApproved;
     @ManyToMany(mappedBy = "followings")//(cascade = CascadeType.ALL, mappedBy = "followings")
     private List<Buyer> followers = new ArrayList<>();
 

@@ -1,10 +1,7 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.controller;
 
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.NotificationService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.ReviewService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +26,9 @@ public class UserController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    MailService mailService;
 
     @GetMapping("/")
     public String index(Model model){
