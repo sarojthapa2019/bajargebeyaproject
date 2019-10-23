@@ -4,13 +4,19 @@ import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Seller;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
+import edu.mum.cs.waa.project.bajargebeyaproject.utils.PdfUtil;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayInputStream;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -63,5 +69,23 @@ public class DashboardController {
         s.setIsApproved(bool);
         userService.saveSeller(s);
         return "redirect:dashboard";
+    }
+
+    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> citiesReport() {
+
+        List<User> user = userService.findAll();
+
+        ByteArrayInputStream bis = PdfUtil.CartEntries(null);
+
+        var headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
     }
 }
