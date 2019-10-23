@@ -1,6 +1,8 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class Product {
     private Double tax=0.0;
     private Double discount=0.0;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Image> images = new ArrayList<>();
     @OneToMany(mappedBy = "product")//, cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();

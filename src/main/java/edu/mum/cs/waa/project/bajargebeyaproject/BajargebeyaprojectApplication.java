@@ -18,19 +18,23 @@ public class BajargebeyaprojectApplication {
 
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BajargebeyaprojectApplication.class, args);
-        //dataLoader(context);
-//        MailService mailService = context.getBean(MailService.class);
-//        try {
-//            Email email = new Email();
-//            email.setSubject("Application starts");
-//            email.setMessage("App has started");
-//            email.addReceiver("sujiv.shrestha@mum.edu");
-////            email.addReceiver("sujiv.sth@outlook.com");
-////            email.addReceiver("sujiv.sth@gmail.com");
-//            mailService.sendMail(email);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//        dataLoader(context);
+//        sendMailCheck(context);
+    }
+
+    private static void sendMailCheck(ApplicationContext context) {
+        MailService mailService = context.getBean(MailService.class);
+        try {
+            Email email = new Email();
+            email.setSubject("Application starts");
+            email.setMessage("App has started");
+            email.addReceiver("sujiv.shrestha@mum.edu");
+//            email.addReceiver("sujiv.sth@outlook.com");
+//            email.addReceiver("sujiv.sth@gmail.com");
+            mailService.sendMail(email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Bean
@@ -140,19 +144,9 @@ public class BajargebeyaprojectApplication {
         c.setName("Electronics");
         c = productService.saveCategory(c);
 
-        Product p = new Product();
-        p.setIsAnAdd(false);
-        p.setDescription("HP Laptop");
-        p.setDiscount(0.0);
-        p.setTax(0.0);
-        p.setName("Laptop");
-        p.setUnit("pcs.");
-        p.setStock(5);
-        p.setSeller(us);
-        s.getProducts().add(p);
-        c.getProducts().add(p);
-        p.getCategories().add(c);
-        p = productService.save(p);
+        Product p = addProduct(productService, us, s, c, "HP");
+
+        Product p2 = addProduct(productService, us, s, c, "Dell");
 
         Image i = new Image();
         i.setProduct(p);
@@ -169,7 +163,7 @@ public class BajargebeyaprojectApplication {
         i2 = productService.saveImage(i2);
 
         Review rv = new Review();
-        rv.setApproved(true);
+        rv.setIsApproved(true);
         rv.setDate(LocalDate.now());
         rv.setDescription("Good Product");
         rv.setRating(5);
@@ -179,41 +173,43 @@ public class BajargebeyaprojectApplication {
         rv = reviewService.save(rv);
 
         Cart ca = b.getCart();
-        CartEntry ce = new CartEntry();
+        CartEntry ce = new CartEntry(ca);
         ce.setQuantity(2);
         ce.setCart(ca);
-        ce.setProductId(p.getId());
+        ce.setProduct(p);
         ca.getCartEntries().add(ce);
-        //ca.setBuyer(b);
-        ca = cartService.saveCart(ca);
+
+//        ca.setBuyer(b);
+        cartService.saveCart(ca);
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
-        po.setQuantity(2);
+//        po.setQuantity(2);
         po.setShippingAddress(add);
         po.setStatus("delivered");
-        po.getProducts().add(p);
+//        po.getProducts().add(p);
         po.setBuyer(b);
         b.getProductOrders().add(po);
         po = productService.saveOrder(po);
 
-        Receipt rc = new Receipt();
-        rc.setProductOrder(po);
-        double total = 0.0;
-        for(Product pr: po.getProducts()){
-            ReceiptEntry re = new ReceiptEntry();
-            re.setDiscount(pr.getDiscount());
-            re.setPrice(pr.getUnitPrice());
-            re.setProductName(pr.getName());
-            re.setQuantity(1);
-            re.setTax(pr.getTax());
-            re.setReceipt(rc);
-            rc.getReceiptEntries().add(re);
-            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
-        }
-        rc.setTotal(total);
-        po.setReceipt(rc);
-        rc = paymentService.saveReceipt(rc);
+//        Receipt rc = new Receipt();
+//        rc.setProductOrder(po);
+//        double total = 0.0;
+//        for(CartEntry ce: po.getCartEntries()){
+//            Product p =
+//            ReceiptEntry re = new ReceiptEntry();
+//            re.setDiscount(pr.getDiscount());
+//            re.setPrice(pr.getUnitPrice());
+//            re.setProductName(pr.getName());
+//            re.setQuantity(1);
+//            re.setTax(pr.getTax());
+//            re.setReceipt(rc);
+//            rc.getReceiptEntries().add(re);
+//            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
+//        }
+//        rc.setTotal(total);
+//        po.setReceipt(rc);
+//        rc = paymentService.saveReceipt(rc);
 
         notificationService.notifyAll("Welcome to Awesome Shopping Site!","www.google.com");
         notificationService.notifyAdmins("Be alert of Hackers!","www.stackoverflow.com");
@@ -234,7 +230,7 @@ public class BajargebeyaprojectApplication {
         Role rb = new Role();
         rb.setRole(rol);
         ub.setRole(rb);
-        switch(rol){
+        switch (rol) {
             case "Admin":
                 Admin a = new Admin();
                 a.setUser(ub);
@@ -258,5 +254,23 @@ public class BajargebeyaprojectApplication {
             default:
         }
         return ub;
+    }
+
+    private static Product addProduct(ProductService productService, User us, Seller s, Category c, String name) {
+        Product p = new Product();
+        p.setIsAnAdd(false);
+        p.setDescription("HP Laptop");
+        p.setDiscount(0.0);
+        p.setTax(0.0);
+        p.setName(name);
+        p.setUnitPrice(100.0);
+        p.setUnit("pcs.");
+        p.setStock(5);
+        p.setSeller(us);
+        s.getProducts().add(p);
+        c.getProducts().add(p);
+        p.getCategories().add(c);
+        productService.save(p);
+        return p;
     }
 }

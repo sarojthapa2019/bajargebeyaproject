@@ -62,7 +62,7 @@ public class PdfUtil {
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
 
-                cell = new PdfPCell(new Phrase(cartEntry.getProductId()));
+                cell = new PdfPCell(new Phrase(cartEntry.getProduct().getName()));
                 cell.setPaddingLeft(5);
                 cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);

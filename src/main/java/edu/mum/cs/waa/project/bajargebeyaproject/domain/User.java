@@ -49,7 +49,7 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Notification> notifications;
     @Transient
-    private transient int notificationCount;
+    private transient Integer notificationCount;
 
     public int getNotificationCount(){
         return notifications.size();

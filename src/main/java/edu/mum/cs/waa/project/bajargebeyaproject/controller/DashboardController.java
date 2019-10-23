@@ -63,12 +63,12 @@ public class DashboardController {
         return "login";
     }
 
-    @GetMapping("/dashboard/seller/{id}/{bool}")
+    @GetMapping("/seller/{id}/{bool}")
     public String approveSeller(@PathVariable("id") Long id, @PathVariable("bool") Boolean bool){
         Seller s = userService.getSellerById(id);
         s.setIsApproved(bool);
-        userService.saveSeller(s);
-        return "redirect:dashboard";
+        s = userService.saveSeller(s);
+        return "redirect:/dashboard";
     }
 
     @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,

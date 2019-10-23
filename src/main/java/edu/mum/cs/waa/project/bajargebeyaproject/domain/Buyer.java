@@ -1,6 +1,8 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Buyer {
     @OneToOne(cascade = CascadeType.ALL)
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
+
     private Cart cart;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Seller> followings = new ArrayList<>();

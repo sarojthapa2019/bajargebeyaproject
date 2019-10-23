@@ -15,8 +15,8 @@ public class Review {
     private LocalDate date;
     @ManyToOne//(cascade = CascadeType.ALL)
     private Buyer buyer;
-    private boolean isApproved;
-    private int rating;
+    private Boolean isApproved;
+    private Integer rating;
     @ManyToOne()
     private Product product;
 }

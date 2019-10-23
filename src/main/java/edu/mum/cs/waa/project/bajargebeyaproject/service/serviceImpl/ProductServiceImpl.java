@@ -1,9 +1,6 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Category;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Image;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Product;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.ProductOrder;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.CategoryRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.ImageRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.ProductOrderRepo;
@@ -63,7 +60,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProducts() {
-        return (List)productRepo.findAll();
+        return (List) productRepo.findAll();
+    }
+    public Optional<Product> findById(Long id) {
+        return productRepo.findById(id);
+    }
+
+    @Override
+    public List<ProductOrder> getAllProductOrderByBuyer(Buyer buyer) {
+        return productOrderRepo.getAllByBuyer(buyer);
+    }
+
+    @Override
+    public void deleteProductOrder(ProductOrder productOrder) {
+        productOrderRepo.delete(productOrder);
+    }
+
+    @Override
+    public ProductOrder findProductOrderById(Long id) {
+        return productOrderRepo.getOne(id);
     }
 
 }
