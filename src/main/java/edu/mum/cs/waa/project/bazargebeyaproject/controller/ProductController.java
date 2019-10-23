@@ -3,21 +3,22 @@ package edu.mum.cs.waa.project.bazargebeyaproject.controller;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.Category;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.Product;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.Review;
-import edu.mum.cs.waa.project.bazargebeyaproject.service.CategoryService;
-import edu.mum.cs.waa.project.bazargebeyaproject.service.PictureService;
-import edu.mum.cs.waa.project.bazargebeyaproject.service.ProductService;
-import edu.mum.cs.waa.project.bazargebeyaproject.service.ReviewService;
+import edu.mum.cs.waa.project.bazargebeyaproject.domain.User;
+import edu.mum.cs.waa.project.bazargebeyaproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Date;
 
 @Controller
 @RequestMapping("/products")
+@SessionAttributes({"user"})
 public class ProductController {
 
     @Autowired
@@ -32,10 +33,20 @@ public class ProductController {
     @Autowired
     ReviewService reviewService;
 
+    @Autowired
+    UserService userService;
+
     /*Name: product related routes
      * Author: Fekadu
      * Date: October 22, 2019
      * */
+
+    @ModelAttribute
+    public void addUserInfo(Model model){
+        User buyer = userService.findById(2L); //todo replace with session; 2 is buyer and 3 is seller
+        model.addAttribute("buyer", buyer);
+    }
+
     @GetMapping("/")
     public String getProductForm(@ModelAttribute("product") Product product, Model model){
 
@@ -59,7 +70,12 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public String updateProduct(Product product, RedirectAttributes redirectAttributes){
+    public String updateProduct(@Valid Product product, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/products/";
+        }
+
         Product updatedProduct = productService.save(product);
 
         if(updatedProduct!=null) {
@@ -81,7 +97,11 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/reviews/add")
-    public String addReview(Review review, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+    public String addReview(@Valid Review review, BindingResult bindingResult, @PathVariable("id") Long id, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/products/"+id;
+        }
 
         Product product = productService.findById(id);
 
@@ -107,7 +127,7 @@ public class ProductController {
         model.addAttribute("pictures", pictureService.findByProductId(id));
         model.addAttribute("reviews", reviewService.findByProductId(id));
 
-        return "product";
+        return "productdetail";
     }
 
     /*Name: category related routes
@@ -123,7 +143,12 @@ public class ProductController {
     }
 
     @PostMapping("/category/add")
-    public String saveCategory(Category category, RedirectAttributes redirectAttributes){
+    public String saveCategory(@Valid Category category, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+        if(bindingResult.hasErrors()){
+            return "redirect:/products/category";
+        }
+
         Category savedCategory = categoryService.save(category);
 
         if(savedCategory!=null) {
