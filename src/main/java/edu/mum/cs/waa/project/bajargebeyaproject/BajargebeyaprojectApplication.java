@@ -132,31 +132,31 @@ public class BajargebeyaprojectApplication {
 
         ProductOrder po = new ProductOrder();
         po.setOrderDate(LocalDate.now());
-        po.setQuantity(2);
+//        po.setQuantity(2);
         po.setShippingAddress(add);
         po.setStatus("delivered");
-        po.getProducts().add(p);
+//        po.getProducts().add(p);
         po.setBuyer(b);
         b.getProductOrders().add(po);
         productService.saveOrder(po);
 
-        Receipt rc = new Receipt();
-        rc.setProductOrder(po);
-        double total = 0.0;
-        for(Product pr: po.getProducts()){
-            ReceiptEntry re = new ReceiptEntry();
-            re.setDiscount(pr.getDiscount());
-            re.setPrice(pr.getUnitPrice());
-            re.setProductName(pr.getName());
-            re.setQuantity(1);
-            re.setTax(pr.getTax());
-            re.setReceipt(rc);
-            rc.getReceiptEntries().add(re);
-            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
-        }
-        rc.setTotal(total);
-        po.setReceipt(rc);
-        paymentService.saveReceipt(rc);
+//        Receipt rc = new Receipt();
+//        rc.setProductOrder(po);
+//        double total = 0.0;
+//        for(Product pr: po.getProducts()){
+//            ReceiptEntry re = new ReceiptEntry();
+//            re.setDiscount(pr.getDiscount());
+//            re.setPrice(pr.getUnitPrice());
+//            re.setProductName(pr.getName());
+//            re.setQuantity(1);
+//            re.setTax(pr.getTax());
+//            re.setReceipt(rc);
+//            rc.getReceiptEntries().add(re);
+//            total+=pr.getUnitPrice()*(1-pr.getDiscount())*(1+pr.getTax());
+//        }
+//        rc.setTotal(total);
+//        po.setReceipt(rc);
+//        paymentService.saveReceipt(rc);
 
         notificationService.notifyAll("Welcome to Awesome Shopping Site!","www.google.com");
         notificationService.notifyAdmins("Be alert of Hackers!","www.stackoverflow.com");

@@ -19,7 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-@SessionAttributes({"user","cart"})
+@SessionAttributes({"user","cart", "itemCount"})
 @Controller
 public class CartController {
 
@@ -44,7 +44,7 @@ public class CartController {
     //for shopping cart we need common model attributes like cart
     @ModelAttribute
     public void commonCartAttributes(Model model){
-        if(model.asMap().containsKey("user")) {
+        if((Buyer)model.asMap().get("user") != null) {
             model.addAttribute("cart", ((Buyer) model.asMap().get("user")).getCart());
             model.addAttribute("itemCount", ((Buyer) model.asMap().get("user")).getCart().getTotalItems());
         }
@@ -59,6 +59,7 @@ public class CartController {
     public String index(Model model){
         Buyer buyer = userService.getBuyerById(1L);
         model.addAttribute("user", buyer);
+        model.addAttribute("cart", buyer.getCart());
         return "index";
     }
 
@@ -69,6 +70,9 @@ public class CartController {
 //        if(cartService.findByBuyer(buyer).isPresent()){
 //            model.addAttribute("cart", cartService.findByBuyer(buyer).get());
 //        }
+        Buyer buyer = userService.getBuyerById(1L);
+        model.addAttribute("user", buyer);
+        model.addAttribute("cart", buyer.getCart());
         return "cart";
     }
 
@@ -126,10 +130,5 @@ public class CartController {
         return "redirect:/index";
     }
 
-    //goto checkout
 
-    @GetMapping("/cart/checkout")
-    public String checkOut(){
-        return "checkout";
-    }
 }

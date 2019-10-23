@@ -3,6 +3,7 @@ package edu.mum.cs.waa.project.bajargebeyaproject.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public class Receipt {
     private Double total;
     @OneToOne(mappedBy = "receipt")
     private ProductOrder productOrder;
+
+    private LocalDate date;
 }
