@@ -22,6 +22,7 @@ public class Product {
     @ManyToMany//(cascade = CascadeType.ALL)
     private List<@NotEmpty Category> categories = new ArrayList<>();
     private double unitPrice;
+    @NotBlank
     @ManyToOne//(cascade = CascadeType.ALL)
     private User seller;
     private String description;

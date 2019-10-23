@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,7 @@ public class ProductOrder {
 //    @OneToMany//(cascade = CascadeType.ALL)
 //    private List<Product> products = new ArrayList<>();
     @ManyToOne//(cascade = CascadeType.ALL)
-
+    @NotBlank
     private Buyer buyer;
     private String status;
     @CreationTimestamp
@@ -31,6 +33,7 @@ public class ProductOrder {
     //making the address field transientx
 //    @OneToOne
     @Embedded
+    @Valid
     private Address shippingAddress;
 //    private int quantity;
     @OneToOne(cascade = CascadeType.ALL)
