@@ -59,6 +59,7 @@ public class CheckoutController {
         productOrder.setShippingAddress(buyer.getUser().getBillingAddress());
         productOrder.setStatus("pending");
         productOrder.setReceipt(new Receipt());
+        productOrder = productService.saveOrder(productOrder);
         for (CartEntry c: cart.getCartEntries()
              ) {
             c.setCart(null);
@@ -67,7 +68,7 @@ public class CheckoutController {
         }
 
         cart = cartService.saveCart(cart);
-        productOrder = productService.saveOrder(productOrder);
+
 
 
 
@@ -83,7 +84,8 @@ public class CheckoutController {
 
     @GetMapping("/order/cancel/{id}")
     public String cancelOrder(@PathVariable Long id){
-        productService.deleteProductOrder(productService.findProductOrderById(id));
+        productService.findProductOrderById(id).setStatus("cancelled");
+        ProductOrder p = productService.saveOrder(productService.findProductOrderById(id));
         return "redirect:/order/list";
     }
 

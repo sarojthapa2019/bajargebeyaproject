@@ -85,16 +85,13 @@ public class CartController {
         int itemCount = 0;
         if(productService.findById(productId).isPresent()){
             Product product = productService.findById(productId).get();
-             cart = (Cart)model.asMap().get("cart");
+             Long cartId = ((Cart)model.asMap().get("cart")).getId();
+             cart = cartService.findCartById(cartId);
             cart.addEntry(product);
 
-//            if(cart.getBuyer() == null){
-//                Buyer buyer = (Buyer) model.asMap().get("user");
-//                cart.setBuyer(buyer);
-//            }
             itemCount = cart.getTotalItems();
             for(CartEntry c: cart.getCartEntries())
-            System.out.println("++++"+c.getId());
+            System.out.println("entry id "+c.getId());
             cart=cartService.saveCart(cart);
         }
         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -104,9 +101,9 @@ public class CartController {
 
 
     //for changing the quantity of each products in a cart entry
-    @PostMapping("/cart/items/quantity")
-    @ResponseBody
-    public CartEntry updateQuantity(@RequestBody String  data, Model model)  {
+    @PostMapping(value = "/cart/items/quantity")
+
+    public @ResponseBody HashMap<String, Object> updateQuantity(@RequestBody String  data, Model model)  {
         CartEntry cartEntry = null;
         Gson gson = new Gson();
         Map<String, Double> pair = gson.fromJson(data, Map.class);
@@ -114,8 +111,16 @@ public class CartController {
         Long id = pair.get("itemId").longValue();
         int quantity = pair.get("quantity").intValue();
         Cart cart = (Cart)model.asMap().get("cart");
-        cartEntry = cart.updateProductQuantity(productService.findById(id).get(),quantity);
-        return cartEntry;
+        Product product = cartService.findById(id).getProduct();
+         cartEntry = cart.updateProductQuantity(product,quantity);
+        cart = cartService.saveCart(cart);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("itemTotal", cartEntry.getSubTotal());
+        map.put("total", cart.getTotalAmount());
+        map.put("itemId", cartEntry.getId());
+        map.put("quantity", cartEntry.getQuantity());
+        map.put("totalQuantity", cart.getTotalItems());
+        return map;
 
     }
     //for clearing cart items
@@ -123,11 +128,16 @@ public class CartController {
     public String clearCart(Model model){
         if((Cart)model.asMap().get("cart") != null){
             Cart cart= (Cart)model.asMap().get("cart");
-            cart.getCartEntries().clear();
+            for (CartEntry c: cart.getCartEntries()
+            ) {
+                c.setCart(null);
+            }
+
+            cart = cartService.saveCart(cart);
 
         }
 
-        return "redirect:/index";
+        return "redirect:/cart";
     }
 
 

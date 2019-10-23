@@ -27,18 +27,20 @@ public class Cart {
         cartEntries = new ArrayList<CartEntry>();
     }
     //for adding each cartEntry in cart
-    public void addEntry(Product product){
+    public CartEntry addEntry(Product product){
         for(CartEntry cartEntry: cartEntries){
             System.out.println(cartEntry.getId());
             if(cartEntry.getProduct().getId()==product.getId()){
                 cartEntry.setQuantity(cartEntry.getQuantity()+1);
-                return;
+                cartEntry.setId(cartEntry.getId());
+                return cartEntry;
             }
         }
         CartEntry cartEntry = new CartEntry(this);
         cartEntry.setProduct(product);
         cartEntry.setQuantity(1);
         this.getCartEntries().add(cartEntry);
+        return cartEntry;
 
 
     }

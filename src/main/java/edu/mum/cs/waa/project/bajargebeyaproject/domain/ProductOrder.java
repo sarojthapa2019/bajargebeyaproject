@@ -35,7 +35,7 @@ public class ProductOrder {
 //    private int quantity;
     @OneToOne(cascade = CascadeType.ALL)
     private Receipt receipt;
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "productOrder")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productOrder")
 
     private List<CartEntry> cartEntries;
 
