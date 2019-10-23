@@ -1,7 +1,5 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.domain;
-
 import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;

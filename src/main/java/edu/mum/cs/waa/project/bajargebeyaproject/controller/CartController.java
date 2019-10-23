@@ -22,7 +22,6 @@ import java.util.Map;
 @SessionAttributes({"user","cart", "itemCount"})
 @Controller
 public class CartController {
-
     private CartService cartService;
     private ProductService productService;
     private UserService userService;
@@ -63,7 +62,7 @@ public class CartController {
         return "index";
     }
 
-    @GetMapping("/cart")
+    @GetMapping("/|")
     public String showCart(Model model){
         //for retrieving buyer(user) from session
 //        Buyer buyer = (Buyer) model.asMap().get("user");
@@ -102,7 +101,6 @@ public class CartController {
 
     //for changing the quantity of each products in a cart entry
     @PostMapping(value = "/cart/items/quantity")
-
     public @ResponseBody HashMap<String, Object> updateQuantity(@RequestBody String  data, Model model)  {
         CartEntry cartEntry = null;
         Gson gson = new Gson();
@@ -123,7 +121,6 @@ public class CartController {
                 "" +
                 "", cart.getTotalItems());
         return map;
-
     }
     //for clearing cart items
     @GetMapping("/cart/clear")
@@ -134,13 +131,8 @@ public class CartController {
             ) {
                 c.setCart(null);
             }
-
             cart = cartService.saveCart(cart);
-
         }
-
         return "redirect:/cart";
     }
-
-
 }
