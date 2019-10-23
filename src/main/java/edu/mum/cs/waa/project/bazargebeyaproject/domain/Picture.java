@@ -6,11 +6,15 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Image {
+public class Picture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
+
+    private String fileName;
+    private String fileExtension;
+
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 }

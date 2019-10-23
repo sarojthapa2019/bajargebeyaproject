@@ -1,8 +1,12 @@
-package edu.mum.cs.waa.project.bazargebeyaproject.service;
+package edu.mum.cs.waa.project.bazargebeyaproject.service.serviceImpl;
 
 import edu.mum.cs.waa.project.bazargebeyaproject.Repository.NotificationRepo;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.Notification;
 import edu.mum.cs.waa.project.bazargebeyaproject.domain.User;
+import edu.mum.cs.waa.project.bazargebeyaproject.service.NotificationService;
+import edu.mum.cs.waa.project.bazargebeyaproject.service.PaymentService;
+import edu.mum.cs.waa.project.bazargebeyaproject.service.ProductService;
+import edu.mum.cs.waa.project.bazargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

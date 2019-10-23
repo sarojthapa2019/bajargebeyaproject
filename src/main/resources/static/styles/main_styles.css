@@ -1406,6 +1406,8 @@ section
 	display: block;
 	width: 100%;
 	background: #f8f8f8;
+	/*position: absolute;*/
+	margin-top: 20%;
 }
 .footer_content
 {

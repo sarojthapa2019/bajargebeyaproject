@@ -13,10 +13,13 @@ public class Review {
     private Long id;
     private String description;
     private LocalDate date;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Buyer buyer;
-    private boolean isApproved;
+
+    private Boolean isApproved;
     private int rating;
+
     @ManyToOne()
     private Product product;
 }

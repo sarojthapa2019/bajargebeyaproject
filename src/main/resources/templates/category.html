@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main_layout}">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/admin_layout}">
+
 <head>
-<title>Category</title>
-<!--<meta charset="utf-8">-->
-<!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--<meta name="description" content="Bajar Gebeya template">-->
-<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">-->
-<!--<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">-->
-<!--<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">-->
-<!--<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">-->
-<!--<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">-->
-<link rel="stylesheet" type="text/css" href="styles/category.css">
-<link rel="stylesheet" type="text/css" href="styles/category_responsive.css">
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <link rel="stylesheet" type="text/css" href="styles/category.css">
+    <link rel="stylesheet" type="text/css" href="styles/category_responsive.css">
 </head>
 <body>
 
-<div layout:fragment="">
+<div layout:fragment="admin_main">
+<div class="home">
+    <div class="home_container d-flex flex-column align-items-center justify-content-end">
+        <div class="home_content text-center">
+            <div class="home_title">Shopping Cart</div>
+            <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                    <li><a href="#">Home</a></li>
+                    <li>Your Cart</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-	</div>
+    <div class="product_category">
+        <div class="container">
+            <div class="row">
+                <div class="alert alert-success" th:if="${message}">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+
+                <div class="alert alert-danger" th:if="${error}">
+                    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+                </div>
+            </div>
+            <div class="row">
+                <form action="#" method="post" th:action="@{/product/category/add}" th:object="${category}">
+                    <div class="col-lg-6">
+                        <div class="">Add Category</div>
+                        <div><input type="text" th:field="*{name}"></div>
+                        <div><input type="submit" class="btn btn-primary" value="Add Category"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 
 <!--<script src="js/jquery-3.2.1.min.js"></script>-->
 <!--<script src="styles/bootstrap-4.1.2/popper.js"></script>-->
@@ -35,6 +63,6 @@
 <!--<script src="plugins/parallax-js-master/parallax.min.js"></script>-->
 <!--<script src="plugins/Isotope/isotope.pkgd.min.js"></script>-->
 <!--<script src="plugins/Isotope/fitcolumns.js"></script>-->
-<!--<script src="js/category.js"></script>-->
+<script src="js/category.js"></script>
 </body>
 </html>
