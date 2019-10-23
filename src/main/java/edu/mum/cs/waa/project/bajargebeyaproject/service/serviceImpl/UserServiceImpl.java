@@ -91,4 +91,9 @@ public class UserServiceImpl implements UserService {
     public List<Seller> getSellers() {
         return (List)sellerRepo.findAll();
     }
+
+    @Override
+    public Buyer getBuyerByUserId(Long id) {
+        return buyerRepo.findByUserId(id);
+    }
 }

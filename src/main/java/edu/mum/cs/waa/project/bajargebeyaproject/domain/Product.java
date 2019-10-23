@@ -15,15 +15,15 @@ public class Product {
     private String name;
     @ManyToMany//(cascade = CascadeType.ALL)
     private List<Category> categories = new ArrayList<>();
-    private double unitPrice;
+    private Double unitPrice=0.0;
     @ManyToOne//(cascade = CascadeType.ALL)
     private User seller;
     private String description;
-    private int stock;
-    private boolean isAnAdd;
+    private Integer stock;
+    private Boolean isAnAdd=false;
     private String unit;
-    private double tax;
-    private double discount;
+    private Double tax=0.0;
+    private Double discount=0.0;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
     @OneToMany(mappedBy = "product")//, cascade = CascadeType.ALL)

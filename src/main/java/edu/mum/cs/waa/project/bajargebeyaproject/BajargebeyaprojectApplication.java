@@ -1,12 +1,18 @@
 package edu.mum.cs.waa.project.bajargebeyaproject;
 
+import com.sun.mail.util.MailSSLSocketFactory;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
+import java.util.Properties;
 
 @SpringBootApplication
 public class BajargebeyaprojectApplication {
@@ -14,6 +20,35 @@ public class BajargebeyaprojectApplication {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(BajargebeyaprojectApplication.class, args);
         dataLoader(context);
+    }
+
+    @Bean
+    public JavaMailSender getJavaMailSender() throws GeneralSecurityException {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.office365.com");//"smtp.gmail.com");
+        mailSender.setPort(587);
+
+        mailSender.setUsername("sujiv.sth@outlook.com");
+        mailSender.setPassword("Suzeve76");
+
+        MailSSLSocketFactory sf = new MailSSLSocketFactory();
+        sf.setTrustAllHosts(true);
+        System.setProperty("javax.net.ssl.trustStore", "E:/");
+        System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.7.0_17/jre/lib/security/cacerts");
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.imap.ssl.trust", "*");
+        props.put("mail.imap.ssl.socketFactory", sf);
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.host", "smtp.outlook.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.user", "sujiv.sth@outlook.com");
+        props.put("mail.password", "Suzeve76");
+
+        return mailSender;
     }
 
     public static void dataLoader(ApplicationContext context){
@@ -85,17 +120,17 @@ public class BajargebeyaprojectApplication {
         a.setUser(ua);
         a = userService.saveAdmin(a);
 
-        addUser(userService,"Sujiv", "Admin");
-        addUser(userService,"Saroj", "Seller");
-        addUser(userService,"Sanjay", "Seller");
-        addUser(userService,"Surafel", "Seller");
+        addUser(userService,"Sujiv", "Admin",add);
+        addUser(userService,"Saroj", "Seller",add);
+        addUser(userService,"Sanjay", "Seller",add);
+        addUser(userService,"Surafel", "Seller",add);
 
         Category c = new Category();
         c.setName("Electronics");
         c = productService.saveCategory(c);
 
         Product p = new Product();
-        p.setAnAdd(false);
+        p.setIsAnAdd(false);
         p.setDescription("HP Laptop");
         p.setDiscount(0.0);
         p.setTax(0.0);
@@ -176,14 +211,14 @@ public class BajargebeyaprojectApplication {
         notificationService.notify("Test notice","/",b.getUser());
     }
 
-    private static User addUser(UserService us, String fn, String rol) {
+    private static User addUser(UserService us, String fn, String rol, Address add) {
         User ub = new User();
 //        ub.setAccount(acc);
-//        ub.setBillingAddress(add);
+        ub.setBillingAddress(add);
         ub.setEmail("pqr@mum.edu");
         ub.setFirstName(fn);
         ub.setLastName("user");
-//        ub.setMailingAddress(add);
+        ub.setMailingAddress(add);
         ub.setPassword("");
         Role rb = new Role();
         rb.setRole(rol);

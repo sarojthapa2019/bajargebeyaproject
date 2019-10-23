@@ -32,4 +32,6 @@ public interface UserService {
     public Admin getAdminById(Long id);
 
     public List<Seller> getSellers();
+
+    public Buyer getBuyerByUserId(Long id);
 }

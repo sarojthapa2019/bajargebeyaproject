@@ -16,6 +16,7 @@
 ***********/
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 @font-face
 {
     font-family: 'Futura';
@@ -47,4 +48,7 @@ th{
     text-align: left;
     background-color: #4CAF50;
     color: white;
+}
+.checked{
+    color:orange;
 }
