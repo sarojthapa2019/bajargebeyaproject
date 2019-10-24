@@ -13,8 +13,8 @@ Methods within the CartController:
 5.   @GetMapping("/cart/items/{id}")
        @ResponseBody
        public  HashMap<String, Object>  addEntryToCart(@PathVariable("id") Long productId, Model model)
-Adds each item to the cart /for changing the quantity of each products in a cart entry
 6. @PostMapping(value = "/cart/items/quantity")                          
+Adds each item to the cart /for changing the quantity of each products in a cart entry
     public @ResponseBody HashMap<String, Object> updateQuantity(@RequestBody String  data, Model model) 
 
 7. for clearing cart item

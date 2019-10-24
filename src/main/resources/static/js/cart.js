@@ -193,8 +193,6 @@ $(document).ready(function()
 
 						success: function(responseData, status, xhttp){
 							console.log(responseData);
-
-
 							 num.text(responseData.quantity);
 							 $('#cartTotal').text(responseData.total);
 							 $('#cardExtraTotal').text(responseData.total);
@@ -236,12 +234,10 @@ $(document).ready(function()
 							$('#cartTotal').text(responseData.total);
 							$('#cardExtraTotal').text(responseData.total);
 							$('#cart-item-count').text(responseData.totalQuantity);
-
 							let divId = 'subTotal'+responseData.itemId;
 							console.log(divId);
 							let sub = document.getElementById('divId');
 							$('#'+divId).text(responseData.itemTotal);
-
 						},
 						error: function (err) {
 							console.log(err);
@@ -251,5 +247,4 @@ $(document).ready(function()
 			});
 		}
 	}
-
 });

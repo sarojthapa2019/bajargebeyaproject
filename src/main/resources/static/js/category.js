@@ -62,7 +62,6 @@ $(document).ready(function()
 	/* 
 
 	3. Init Menu
-
 	*/
 
 	function initMenu()
@@ -202,5 +201,4 @@ $(document).ready(function()
 	        });
     	}
     }
-
 });
