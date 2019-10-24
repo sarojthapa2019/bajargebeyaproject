@@ -8,6 +8,8 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @SessionAttributes({"user","cart", "itemCount"})
 @Controller
@@ -41,15 +44,34 @@ public class CartController {
     //for shopping cart we need common model attributes like cart
     @ModelAttribute
     public void commonCartAttributes(Model model){
-        User user = (User)model.asMap().get("user");
-        if(user != null) {
-            model.addAttribute("cart", userService.getBuyerByUserId(user.getId()).getCart());
-            model.addAttribute("itemCount", userService.getBuyerByUserId(user.getId()).getCart().getTotalItems());
+        if((Buyer)model.asMap().get("user") != null) {
+            model.addAttribute("cart", ((Buyer) model.asMap().get("user")).getCart());
+            model.addAttribute("itemCount", ((Buyer) model.asMap().get("user")).getCart().getTotalItems());
         }
         else{
             model.addAttribute("cart", userService.getBuyerById(1l).getCart());
             model.addAttribute("itemCount",userService.getBuyerById(1l).getCart().getTotalItems());
         }
+
+    }
+    @RequestMapping(value = {"/"},
+            method = RequestMethod.GET)
+    public String homepage() {
+        return "redirect:/index";
+    }
+
+//    @RequestMapping("/index")
+//    public String index(Model model){
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Optional<User> user = userService.findByEmail(auth.getName());
+//        model.addAttribute("user", user);
+//        return "index";
+//    }
+    @RequestMapping("/index/{id}")
+    public String index(@PathVariable("id") Long id, Model model){
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "index";
     }
 
     @GetMapping("/cart")
@@ -60,7 +82,7 @@ public class CartController {
 //            model.addAttribute("cart", cartService.findByBuyer(buyer).get());
 //        }
         Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer.getUser());
+        model.addAttribute("user", buyer);
         model.addAttribute("cart", buyer.getCart());
         return "cart";
     }
