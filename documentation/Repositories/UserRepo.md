@@ -4,3 +4,9 @@
  1. public List<User> findAllByRole(String role): helps to find List of users based on 
  user's role
  
+
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTEyOTMzMjQ0ODFdfQ==
+-->
