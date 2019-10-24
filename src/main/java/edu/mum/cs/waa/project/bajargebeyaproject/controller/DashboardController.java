@@ -109,13 +109,11 @@ public class DashboardController {
         return "redirect:/dashboard";
     }
 
-    @RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+    @RequestMapping(value = "/printReceipt/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> citiesReport() {
+    public ResponseEntity<InputStreamResource> printReceipt(@PathVariable("id") Long id) {
 
-        List<User> user = userService.findAll();
-
-        ByteArrayInputStream bis = PdfUtil.CartEntries(null);
+        ByteArrayInputStream bis = PdfUtil.ReceiptEntries(cartService.getReceipt(id));
 
         var headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");

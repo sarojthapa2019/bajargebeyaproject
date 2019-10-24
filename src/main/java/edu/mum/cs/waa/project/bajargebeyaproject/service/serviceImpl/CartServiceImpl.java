@@ -2,8 +2,10 @@ package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Cart;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.CartEntry;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.Receipt;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.CartEntryRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.CartRepo;
+import edu.mum.cs.waa.project.bajargebeyaproject.repository.ReceiptRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class CartServiceImpl implements CartService {
     private CartRepo cartRepo;
     @Autowired
     private CartEntryRepo cartEntryRepo;
+    @Autowired
+    private ReceiptRepo receiptRepo;
     @Override
     public Cart saveCart(Cart cart) {
         return cartRepo.save(cart);
@@ -59,6 +63,11 @@ public class CartServiceImpl implements CartService {
     @Override
     public void saveCartEntry(CartEntry ce) {
         cartEntryRepo.save(ce);
+    }
+
+    @Override
+    public Receipt getReceipt(Long id) {
+        return receiptRepo.findById(id).get();
     }
 
 }

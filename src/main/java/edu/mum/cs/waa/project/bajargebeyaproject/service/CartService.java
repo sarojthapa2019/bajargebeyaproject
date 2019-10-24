@@ -2,6 +2,7 @@ package edu.mum.cs.waa.project.bajargebeyaproject.service;
 
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Cart;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.CartEntry;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.Receipt;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface CartService {
     public List<CartEntry> getPendingOrders();
 
     public void saveCartEntry(CartEntry ce);
+
+    public Receipt getReceipt(Long id);
 }

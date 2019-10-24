@@ -1,15 +1,10 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.utils;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.*;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.CartEntry;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Receipt;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.ReceiptEntry;
 import org.slf4j.Logger;
@@ -18,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+
+import static com.itextpdf.text.Font.BOLD;
+
 public class PdfUtil {
     private static final Logger logger = LoggerFactory.getLogger(PdfUtil.class);
 
@@ -75,16 +73,44 @@ public class PdfUtil {
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
                 cell.setPaddingRight(5);
                 table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(receiptEntry.getPrice()/receiptEntry.getQuantity())));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setPaddingRight(5);
+                table.addCell(cell);
+
+                cell = new PdfPCell(new Phrase(String.valueOf(receiptEntry.getPrice())));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                cell.setPaddingRight(5);
+                table.addCell(cell);
             }
 
-            PdfPCell cell2 = new PdfPCell(new Phrase(Double.toString(receipt.getTotal())));
+            PdfPCell cell2 = new PdfPCell(new Phrase());
             cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell2);
 
             PdfWriter.getInstance(document, out);
             document.open();
+            Paragraph p = new Paragraph();
+            p.add("Bajar-Gebeya Shopping");
+            p.setAlignment(Element.ALIGN_CENTER);
+            Font bigFont = new Font();
+            bigFont.setFamily("Serif");
+            bigFont.setSize(18);
+            p.setFont(bigFont);
+            document.add(p);
+
+            PdfPCell date = new PdfPCell(new Phrase("Date:"+receipt.getDate().toString()));
+            date.setHorizontalAlignment(Element.ALIGN_LEFT);
+            document.add(date);
+
             document.add(table);
+
+            PdfPCell total = new PdfPCell(new Phrase("Total :"+Double.toString(receipt.getTotal())));
+            total.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            document.add(total);
 
             document.close();
 
