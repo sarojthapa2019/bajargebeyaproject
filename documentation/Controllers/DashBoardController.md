@@ -7,3 +7,6 @@
                 produces = MediaType.APPLICATION_PDF_VALUE)public ResponseEntity<InputStreamResource> citiesReport(): generates user report
 
  
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNTA4ODU1NzVdfQ==
+-->
