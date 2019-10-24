@@ -54,9 +54,10 @@ public class DashboardController {
                     Buyer b = userService.getBuyerByUserId(u.getId());
                     model.addAttribute("Reward", b.getReward());
                     model.addAttribute("OrderEntries",cartService.getPendingOrders());
+                    model.addAttribute("ProductOrders",productService.getAllProductOrderByBuyer(b));
                     model.addAttribute("buyer",b);
                 case "Seller":
-                    model.addAttribute("cartEntries",cartService.getPendingOrders());
+                    model.addAttribute("OrderEntries",cartService.getPendingOrders());
             }
 
             return "dashboard";
@@ -86,8 +87,12 @@ public class DashboardController {
         Product p = ce.getProduct();
         switch (status){
             case "delivered":
+                //10% of payment reward for each purchase;
+                Integer reward = ce.getProductOrder().getBuyer().getReward()+(int)(ce.getSubTotal()/10);
+                ce.getProductOrder().getBuyer().setReward(reward);
                 noticeService.notify("The "+p.getName()+"has been delivered.","#",p.getSeller());
-                noticeService.notify("The "+p.getName()+"has been delivered. Please send us your feedback","/products/"+p.getId(),ce.getProductOrder().getBuyer().getUser());
+                noticeService.notify("The "+p.getName()+"has been delivered."+reward+" reward points added. Please send us your feedback","/products/"+p.getId(),ce.getProductOrder().getBuyer().getUser());
+                break;
             case "cancelled":
                 ProductOrder po = ce.getProductOrder();
                 Buyer b = po.getBuyer();

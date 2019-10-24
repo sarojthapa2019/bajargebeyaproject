@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
@@ -29,8 +30,6 @@ public class BajargebeyaprojectApplication {
             email.setSubject("Application starts");
             email.setMessage("App has started");
             email.addReceiver("sujiv.shrestha@mum.edu");
-//            email.addReceiver("sujiv.sth@outlook.com");
-//            email.addReceiver("sujiv.sth@gmail.com");
             mailService.sendMail(email);
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,32 +37,14 @@ public class BajargebeyaprojectApplication {
     }
 
     @Bean
-    public JavaMailSender getJavaMailSender() throws GeneralSecurityException {
+    public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-//        mailSender.setHost("smtp.office365.com");//"smtp.gmail.com");
-//        mailSender.setPort(587);
-//
-//        mailSender.setUsername("sujiv.sth@outlook.com");
-//        mailSender.setPassword("Suzeve76");
-//
-//        MailSSLSocketFactory sf = new MailSSLSocketFactory();
-//        sf.setTrustAllHosts(true);
-//        System.setProperty("javax.net.ssl.trustStore", "E:/");
-//        System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.7.0_17/jre/lib/security/cacerts");
-//        Properties props = mailSender.getJavaMailProperties();
-//        props.put("mail.imap.ssl.trust", "*");
-//        props.put("mail.imap.ssl.socketFactory", sf);
-//        props.put("mail.transport.protocol", "smtp");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.debug", "true");
-//        props.put("mail.smtp.host", "smtp.outlook.com");
-//        props.put("mail.smtp.port", "587");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.user", "sujiv.sth@outlook.com");
-//        props.put("mail.password", "Suzeve76");
-
         return mailSender;
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 
     public static void dataLoader(ApplicationContext context){
@@ -71,7 +52,6 @@ public class BajargebeyaprojectApplication {
         ProductService productService = context.getBean(ProductService.class);
         CartService cartService = context.getBean(CartService.class);
         ReviewService reviewService = context.getBean(ReviewService.class);
-        PaymentService paymentService = context.getBean(PaymentService.class);
         NotificationService notificationService = context.getBean(NotificationService.class);
 
         User us = new User();

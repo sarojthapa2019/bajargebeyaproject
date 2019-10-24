@@ -116,4 +116,23 @@ public class NotificationServiceImpl implements NotificationService {
             return false;
         }
     }
+
+    @Override
+    public void sendReceipt(String sub, String file, User target) throws Exception {
+        Email email = new Email();
+        email.addReceiver(target.getEmail());
+        email.setMessage("Thank you for buying at BajarGebeya. Keep buying");
+        email.setSubject(sub);
+        email.setFilePath(file);
+        mailService.sendMail(email);
+    }
+
+    @Override
+    public void sendReceipt(Long id, User user) throws Exception {
+        Email email = new Email();
+        email.addReceiver(user.getEmail());
+        email.setMessage("Thank you for buying at BajarGebeya. Keep buying. Please login and goto http://localhost:8080/printReceipt/"+id+" to print your receipt.");
+        email.setSubject("Your Purchase Receipt: "+id);
+        mailService.sendMail(email);
+    }
 }

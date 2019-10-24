@@ -12,20 +12,34 @@ import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
-
-import static com.itextpdf.text.Font.BOLD;
 
 public class PdfUtil {
     private static final Logger logger = LoggerFactory.getLogger(PdfUtil.class);
 
     public static ByteArrayInputStream ReceiptEntries(Receipt receipt) {
-        List<ReceiptEntry> receiptEntries = receipt.getReceiptEntries();
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try{
+            PdfWriter.getInstance(document, out);
+            document.open();
+            document.add(getBillBody(receipt));
+            document.close();
 
-        try {
-//            |---id---|---ProductName---|---Qty---|---Rate---|---Amt---|
+        } catch (DocumentException ex) {
+
+            logger.error("Error occurred: {0}", ex);
+        }
+
+        return new ByteArrayInputStream(out.toByteArray());
+    }
+
+    private static Paragraph getBillBody(Receipt receipt) throws DocumentException {
+            List<ReceiptEntry> receiptEntries = receipt.getReceiptEntries();
+
+            //|---id---|---ProductName---|---Qty---|---Rate---|---Amt---|
             PdfPTable table = new PdfPTable(5);
             table.setWidthPercentage(80);
             table.setWidths(new int[]{1, 7, 3, 4, 5});
@@ -91,34 +105,46 @@ public class PdfUtil {
             cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
             cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-            PdfWriter.getInstance(document, out);
-            document.open();
             Paragraph p = new Paragraph();
             p.add("Bajar-Gebeya Shopping");
             p.setAlignment(Element.ALIGN_CENTER);
+            p.add("\n");
+            p.add("Date:"+receipt.getDate().toString());
             Font bigFont = new Font();
             bigFont.setFamily("Serif");
             bigFont.setSize(18);
             p.setFont(bigFont);
-            document.add(p);
+            p.add(table);
 
-            PdfPCell date = new PdfPCell(new Phrase("Date:"+receipt.getDate().toString()));
-            date.setHorizontalAlignment(Element.ALIGN_LEFT);
-            document.add(date);
-
-            document.add(table);
-
-            PdfPCell total = new PdfPCell(new Phrase("Total :"+Double.toString(receipt.getTotal())));
+            PdfPTable totalRow = new PdfPTable(3);
+            totalRow.setWidthPercentage(80);
+            totalRow.setWidths(new int[]{1,14, 5});
+            PdfPCell total = new PdfPCell(new Phrase(" "));
+            totalRow.addCell(total);
+            total = new PdfPCell(new Phrase(" Grand Total:"));
+            totalRow.addCell(total);
+            total = new PdfPCell(new Phrase(Double.toString(receipt.getTotal())));
             total.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            document.add(total);
+            totalRow.addCell(total);
+            p.add(totalRow);
+            p.add("\n*Thank you for shopping*");
 
+            return p;
+    }
+
+    public static boolean saveReceipt(Receipt receipt) {
+        Document document = new Document();
+        document.open();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream("po"+receipt.getId()+"receipt.pdf"));
+            document.add(getBillBody(receipt));
             document.close();
-
-        } catch (DocumentException ex) {
-
-            logger.error("Error occurred: {0}", ex);
+            return true;
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-
-        return new ByteArrayInputStream(out.toByteArray());
+        return false;
     }
 }

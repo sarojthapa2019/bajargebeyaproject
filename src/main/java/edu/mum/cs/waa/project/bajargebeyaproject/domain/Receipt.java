@@ -17,7 +17,7 @@ public class Receipt {
 
     @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private List<ReceiptEntry> receiptEntries = new ArrayList<>();
-    private Double total;
+    private Double total=0.0;
     @OneToOne(mappedBy = "receipt")
     private ProductOrder productOrder;
 
