@@ -31,11 +31,11 @@ sec:authorize="hasAuthority('ROLE_ADMIN')"
 
 Demo Code:
 
-<span class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment</th>
+\<span class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment\</th>
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY3ODIwNTMzNiwxOTYyMjEyNDE2LC00Nj
-Y5MjA4MTQsOTU4MDY4OTkyLC0xNTExNjE2MTA0LDMzMTkwNjMw
-NywtMjEzOTM5NjY4N119
+eyJoaXN0b3J5IjpbMTExMzEyNDEyMCwxNjc4MjA1MzM2LDE5Nj
+IyMTI0MTYsLTQ2NjkyMDgxNCw5NTgwNjg5OTIsLTE1MTE2MTYx
+MDQsMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
 -->
