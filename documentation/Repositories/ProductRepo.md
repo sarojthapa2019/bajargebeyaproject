@@ -1,3 +1,5 @@
+#ProductRepo
+Extends JPaRepository to handle various CRUD operations on Product domain
 
 
 
