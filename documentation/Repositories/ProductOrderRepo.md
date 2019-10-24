@@ -1,7 +1,5 @@
-
-
-
-> Written with [StackEdit](https://stackedit.io/).
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbNzMwOTk4MTE2XX0=
--->
+#ProductOrderRepo
+ProductOrder Repository  extends JPA Repository to handle CRUD operation  for ProductOrder domain
+Abstract  method List<ProductOrder> getAllByBuyer(Buyer buyer): for retrieving all productOrders by the Buyer
+ 
+ 

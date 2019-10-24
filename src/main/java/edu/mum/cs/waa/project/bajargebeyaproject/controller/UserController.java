@@ -32,7 +32,6 @@ public class UserController {
 
     @GetMapping("/")
     public String index(Model model){
-        mockLogin(model, 1l);
         return "index";
     }
 

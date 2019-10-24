@@ -1,5 +1,4 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.controller;
-
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Seller;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
