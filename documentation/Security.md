@@ -1,8 +1,11 @@
 
 
 **1. Spring Security**
-Domains: User, Role, Seller, Buyer, Admin
+For Getting Authenticated Current User
+Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
+eyJoaXN0b3J5IjpbLTE1MTE2MTYxMDQsMzMxOTA2MzA3LC0yMT
+M5Mzk2Njg3XX0=
 -->
