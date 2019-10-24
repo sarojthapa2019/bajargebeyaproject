@@ -13,7 +13,7 @@ Use the dependency for thymeleaf
  <artifactId>thymeleaf-extras-springsecurity5</artifactId>  
 </dependency>
 
-Use 
+Use in <html
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 
 as in following demo
@@ -29,6 +29,6 @@ just use the sec
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAwODQ5MDY2OCwtMTUxMTYxNjEwNCwzMz
-E5MDYzMDcsLTIxMzkzOTY2ODddfQ==
+eyJoaXN0b3J5IjpbOTU4MDY4OTkyLDIwMDg0OTA2NjgsLTE1MT
+E2MTYxMDQsMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
 -->
