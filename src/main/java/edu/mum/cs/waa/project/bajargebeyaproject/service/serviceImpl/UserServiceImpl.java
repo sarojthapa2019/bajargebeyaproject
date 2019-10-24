@@ -96,4 +96,10 @@ public class UserServiceImpl implements UserService {
     public Buyer getBuyerByUserId(Long id) {
         return buyerRepo.findByUserId(id);
     }
+
+    @Override
+    public boolean checkRole(Long id, String role) {
+        System.out.println("checking role +"+role+":"+userRepo.findById(id).get().getRole().getRole().equals(role));
+        return userRepo.findById(id).get().getRole().getRole().equals(role);
+    }
 }

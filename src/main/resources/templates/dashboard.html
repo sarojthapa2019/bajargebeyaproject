@@ -20,7 +20,7 @@
             <tr>
                 <td>
                     <!-- Personal  -->
-                    <div class="col-lg-6 product_col">
+                    <div><!-- class="col-lg-6 product_col">-->
                         <div class="product_info">
                             <div class="product_name" th:text="${user.firstName+' '+user.lastName}">User Name</div>
                             <div class="product_category">
@@ -113,7 +113,7 @@
                             <span th:text="${review.buyer.user.firstName+' '+review.buyer.user.lastName}"></span>
                         </td>
                         <td class="t_data">
-                            <div class="button"><a href="#" th:href="@{'/review/'+${review.id}+'/'+${review.isApproved?'true':'false'}}" th:text="${review.isApproved}?Block:Approve">Press</a></div>
+                            <div class="button"><a href="#" th:href="@{'/review/'+${review.id}+'/true'}}" th:text="${review.isApproved}?Block:Approve">Press</a></div>
                         </td>
 
                     </tr>
@@ -140,7 +140,7 @@
                             <span th:text="${product.seller.id}"></span>
                         </td>
                         <td class="t_data">
-                            <div class="button" th:onclick="addEnable(!${product.isAnAdd});" ><a href="#" th:text="${product.isAnAdd}?'Disable Ads':'Enable Ads'">Press</a></div>
+                            <div class="button" ><a href="#" th:href="@{'/productAds/'+${product.id}+'/'+${product.isAnAdd?'false':'true'}}" th:text="${product.isAnAdd}?'Disable Ads':'Enable Ads'">Press</a></div>
                         </td>
                     </tr>
                 </th:block>
@@ -149,9 +149,60 @@
         </div>
     </div>
 
-    <!-- Products -->
+    <!-- Buyer DashBoard Tables-->
+    <div th:if="${user.role.role=='Buyer'}">
+        <!-- Product Order Cancel-->
+        <h3>Product Order Information</h3>
+        <table class="dashboard">
+            <thead>
+            <tr>
+                <th class="t_head">Product</th><th class="t_head">Status</th><th class="t_head">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="oe:${OrderEntries}">
+                <tr>
+                    <td class="t_data"><span th:text="${oe.product.name+'('+oe.quantity+')'}">Product Name</span></td>
+                    <td class="t_data">
+                        <span th:text="${oe.status}"></span>
+                    </td>
+                    <td class="t_data">
+                        <div class="button"><a href="#" th:href="@{'/cartEntry/'+${oe.id}+'/cancelled'}" th:text="Cancel">Press</a></div>
+                    </td>
 
-    <div th:replace="layout/products :: products"></div>
+                </tr>
+            </th:block>
+            </tbody>
+        </table><br/>
+    </div>
+
+    <!-- Seller DashBoard Tables-->
+    <div th:if="${user.role.role=='Seller'}">
+        <!-- Product Order Cancel-->
+        <h3>Product Order Information</h3>
+        <table class="dashboard">
+            <thead>
+            <tr>
+                <th class="t_head">Product</th><th class="t_head">Deliver To</th><th class="t_head">Status</th><th class="t_head">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="oe:${OrderEntries}">
+                <tr>
+                    <td class="t_data"><span th:text="${oe.product.name+'('+oe.quantity+')'}">Product Name</span></td>
+                    <td class="t_data"><span th:text="${oe.productOrder.buyer.user.firstName+' Address:('+oe.productOrder.shippingAddress.street+')'}">ShippAddress</span></td>
+                    <td class="t_data">
+                        <span th:text="${oe.status}"></span>
+                    </td>
+                    <td class="t_data">
+                        <div class="button"><a href="#" th:href="@{'/cartEntry/'+${oe.id}+'/delivered'}" th:text="Delevered">Press</a></div>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table><br/>
+    </div>
 
 </div>
 </body>

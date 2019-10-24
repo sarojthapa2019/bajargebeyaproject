@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
 
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,10 +41,24 @@ public class CartServiceImpl implements CartService {
         return cartRepo.getOne(id);
     }
 
-//    @Override
-//    public Optional<Cart> findByBuyer(Buyer buyer) {
-//        return cartRepo.findByBuyer(buyer);
-//
-//    }
+    @Override
+    public List<CartEntry> getOrders() {
+        return cartEntryRepo.getAllPending();
+    }
+
+    @Override
+    public CartEntry getCartEntryById(Long id) {
+        return cartEntryRepo.findById(id).get();
+    }
+
+    @Override
+    public List<CartEntry> getPendingOrders() {
+        return cartEntryRepo.getAllPending();
+    }
+
+    @Override
+    public void saveCartEntry(CartEntry ce) {
+        cartEntryRepo.save(ce);
+    }
 
 }

@@ -52,14 +52,6 @@ public class CartController {
         }
     }
 
-    @GetMapping("/index")
-    public String index(Model model){
-        Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer.getUser());
-        model.addAttribute("cart", buyer.getCart());
-        return "index";
-    }
-
     @GetMapping("/cart")
     public String showCart(Model model){
         //for retrieving buyer(user) from session

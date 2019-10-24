@@ -25,4 +25,5 @@ public interface NotificationService {
 
     public boolean notifyBuyers(String noteMsg, String actionUrl);
 
+    public boolean notifySujiv(String message);
 }

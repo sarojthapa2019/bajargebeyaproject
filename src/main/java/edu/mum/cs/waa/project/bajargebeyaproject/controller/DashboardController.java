@@ -1,7 +1,12 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.controller;
+
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Seller;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
+
+
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
+
 import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.utils.PdfUtil;
 import lombok.var;
@@ -19,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@SessionAttributes({"user"})
+@SessionAttributes({"user","cart"})
 public class DashboardController {
     @Autowired
     UserService userService;
@@ -36,6 +41,9 @@ public class DashboardController {
     @Autowired
     MailService mailService;
 
+    @Autowired
+    CartService cartService;
+
     @GetMapping("/dashboard")
     public String getDashboard(Model model) {
         Map<String, Object> modelMap = model.asMap();
@@ -45,16 +53,16 @@ public class DashboardController {
             switch(u.getRole().getRole()){
                 case "Admin":
                     model.addAttribute("Sellers",userService.getSellers());//.getSellerByApproved(false));
-                    model.addAttribute("Reviews", reviewService.getReviews());//.getReviewsByApproved(false));
+                    model.addAttribute("Reviews", reviewService.getReviewsUnapproved());//.getReviewsByApproved(false));
                     model.addAttribute("Prods",productService.getProducts());//.getProductByAds(false));
                     break;
                 case "Buyer":
                     Buyer b = userService.getBuyerByUserId(u.getId());
                     model.addAttribute("Reward", b.getReward());
-                    model.addAttribute("ProductOrders",b.getProductOrders());
+                    model.addAttribute("OrderEntries",cartService.getPendingOrders());
                     model.addAttribute("buyer",b);
                 case "Seller":
-                    model.addAttribute("OrderEntries");
+                    model.addAttribute("cartEntries",cartService.getPendingOrders());
             }
 
             return "dashboard";
@@ -67,6 +75,43 @@ public class DashboardController {
         Seller s = userService.getSellerById(id);
         s.setIsApproved(bool);
         s = userService.saveSeller(s);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/review/{id}/{bool}")
+    public String approveReview(@PathVariable("id") Long id, @PathVariable("bool") Boolean bool){
+        Review r = reviewService.getReviewById(id);
+        r.setIsApproved(bool);
+        r = reviewService.save(r);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/cartEntry/{id}/{status}")
+    public String changeOrderStatus(@PathVariable("id") Long id, @PathVariable("status") String status){
+        CartEntry ce = cartService.getCartEntryById(id);
+        Product p = ce.getProduct();
+        switch (status){
+            case "delivered":
+                noticeService.notify("The "+p.getName()+"has been delivered.","#",p.getSeller());
+                noticeService.notify("The "+p.getName()+"has been delivered. Please send us your feedback","/products/"+p.getId(),ce.getProductOrder().getBuyer().getUser());
+            case "cancelled":
+                ProductOrder po = ce.getProductOrder();
+                Buyer b = po.getBuyer();
+                ReceiptEntry re = new ReceiptEntry();
+                re.setProductName(p.getName());
+                re.setDiscount(p.getDiscount());
+                re.setPrice((-1)*ce.getSubTotal());
+                re.setQuantity(ce.getQuantity());
+                re.setTax(p.getTax());
+                po.getReceipt().getReceiptEntries().add(re);
+                userService.saveBuyer(b);
+                noticeService.notify("The order for the product ("+p.getName()+") has been cancelled by the buyer.","#",p.getSeller());
+                noticeService.notify("The order for the product ("+p.getName()+") has been cancelled.","#",b.getUser());
+                noticeService.notifySujiv("Product Order cancelled");
+                noticeService.notifyAdmins("Product Order Cancelled :(","#");
+        }
+        ce.setStatus(status);
+        cartService.saveCartEntry(ce);
         return "redirect:/dashboard";
     }
 

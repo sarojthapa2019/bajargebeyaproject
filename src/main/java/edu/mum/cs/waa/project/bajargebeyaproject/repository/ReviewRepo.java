@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface ReviewRepo extends JpaRepository<Review,Long> {
     @Query(value="SELECT r FROM Review r WHERE r.isApproved = ?1")
-    public List<Seller> findByApproved(boolean b);
+    public List<Review> findByApproved(boolean b);
 }
