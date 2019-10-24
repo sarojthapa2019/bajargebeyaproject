@@ -28,7 +28,7 @@ public class BajargebeyaprojectApplication {
         Account acc = new Account();
         acc.setCardType("Credit");
         acc.setCsv("225");
-        acc.setExpiryDate(LocalDate.now());
+       // acc.setExpiryDate(LocalDate.now());
         acc.setNumber("12345678");
         us.setAccount(acc);
         Address add = new Address();

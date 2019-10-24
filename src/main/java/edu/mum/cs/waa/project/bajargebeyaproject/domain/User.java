@@ -15,8 +15,11 @@ public class User {
 
     private String firstName;
     private String lastName;
+    @Column(nullable = false)
+    private boolean active;
 
-//    @OneToOne(cascade = CascadeType.ALL)
+
+    //    @OneToOne(cascade = CascadeType.ALL)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "city", column = @Column(name = "bill_city")),

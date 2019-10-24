@@ -2,15 +2,14 @@ package edu.mum.cs.waa.project.bajargebeyaproject.controller;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.gson.Gson;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Cart;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.CartEntry;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Product;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.CartService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @SessionAttributes({"user","cart", "itemCount"})
 @Controller
@@ -54,12 +54,17 @@ public class CartController {
         }
 
     }
+    @RequestMapping(value = {"/"},
+            method = RequestMethod.GET)
+    public String homepage() {
+        return "redirect:/index";
+    }
 
-    @GetMapping("/index")
+    @RequestMapping("/index")
     public String index(Model model){
-        Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer);
-        model.addAttribute("cart", buyer.getCart());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userService.findByEmail(auth.getName());
+        model.addAttribute("user", user);
         return "index";
     }
 

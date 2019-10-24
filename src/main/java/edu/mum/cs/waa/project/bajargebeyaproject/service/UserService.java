@@ -1,11 +1,9 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Admin;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Seller;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -16,6 +14,8 @@ public interface UserService {
     public List<User> findAllByRole(String role);
 
     public User findById(Long i);
+
+    public Optional<User> findByEmail(String email);
 
     public Buyer saveBuyer(Buyer b);
 
@@ -28,4 +28,6 @@ public interface UserService {
     public Seller getSellerById(Long id);
 
     public Admin getAdminById(Long id);
+
+    public List<Role> getAllRole();
 }
