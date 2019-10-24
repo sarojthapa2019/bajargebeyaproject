@@ -1,11 +1,23 @@
 #CartController controls activities of collecting product to the cart
 Methods within the CartController:
-1. public String clear(SessionStatus status)-clear session
-2. public void commonCartAttributes(Model model): provides common model for shopping cart
-3. public String index(Model model): display cart by index
 
-4. public String showCart(Model model): show the cart
-5. public  HashMap<String, Object>  addEntryToCart(@PathVariable("id") Long productId, Model model): 
-Adds each item to the cart 
-6.  public String clearCart(Model model): clears items from the cart
+1. @GetMapping("/gone")
+ public String clear(SessionStatus status)  clear cart  session
 
+2. @ModelAttribute public void commonCartAttributes(Model model): provides common model for shopping cart
+
+3. @GetMapping("/index") public String index(Model model): display cart by index
+
+4. @GetMapping("/cart")  public String showCart(Model model): show the cart
+
+5.   @GetMapping("/cart/items/{id}")
+       @ResponseBody
+       public  HashMap<String, Object>  addEntryToCart(@PathVariable("id") Long productId, Model model)
+Adds each item to the cart /for changing the quantity of each products in a cart entry
+6. @PostMapping(value = "/cart/items/quantity")                          
+    public @ResponseBody HashMap<String, Object> updateQuantity(@RequestBody String  data, Model model) 
+
+7. for clearing cart item
+ //for clearing cart items
+    @GetMapping("/cart/clear")
+    public String clearCart(Model model)
