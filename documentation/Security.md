@@ -28,8 +28,9 @@ sec:authorize="isAuthenticated()"
 And to check the specific role
 sec:authorize="hasAuthority('ROLE_ADMIN')" 
 
-
+Demo Code:
+<th class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment</th>
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzOTAwNjI3NDUsOTU4MDY4OTkyLC0xNT
-ExNjE2MTA0LDMzMTkwNjMwNywtMjEzOTM5NjY4N119
+eyJoaXN0b3J5IjpbLTQ2NjkyMDgxNCw5NTgwNjg5OTIsLTE1MT
+E2MTYxMDQsMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
 -->
