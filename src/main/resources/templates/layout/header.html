@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main_layout}">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +40,7 @@
                         </form>
                     </div>
                     <!-- User -->
-                    <div class="user"><a href="#" th:href="@{/dashboard}"><div><img src="../static/images/user.svg" th:src="@{/images/user.svg}" alt="https://www.flaticon.com/authors/freepik"><div th:if="${user}!=null" th:text="${user.notificationCount}">1</div></div></a></div>
+                    <div class="user"><a href="#" th:href="@{/dashboard}"><div><img src="../static/images/user.svg" th:src="@{/images/user.svg}" alt="https://www.flaticon.com/authors/freepik"><div sec:authorize="isAuthenticated()" th:text="${user.notificationCount}">1</div></div></a></div>
                     <!-- Cart -->
                     <div  class="cart"><a th:href="@{'/cart'}"><div><img class="svg" src="../static/images/cart.svg" th:src="@{/images/cart.svg}" alt="https://www.flaticon.com/authors/freepik"><div th:text="${itemCount}" id="cart-item-count">0</div></div></a></div>
                     <!-- Phone -->
@@ -48,7 +49,8 @@
                     <div class="header_phone d-flex flex-row align-items-center justify-content-start">
                         <div class="fa fa-sign-out"><a th:href="@{/}">Logout</a></div>
 <!--                        <div><div><img src="../static/images/phone.svg" th:src="@{/images/phone.svg}" alt="https://www.flaticon.com/authors/freepik"></div></div>-->
-                        <div th:text="${'Welcome, '+user.firstName}">+1 641-010-0060</div>
+                        <div th:if="${user!=null}" th:text="${'Welcome, '+user.firstName}">+1 641-010-0060</div>
+                        <div th:unless="${user!=null}" th:text="${'Welcome, Guest'}">+1 641-010-0060</div>
                     </div>
                 </div>
             </div>

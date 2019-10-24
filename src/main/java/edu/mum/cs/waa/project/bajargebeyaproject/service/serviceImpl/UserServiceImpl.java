@@ -7,12 +7,16 @@ import edu.mum.cs.waa.project.bajargebeyaproject.repository.SellerRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.UserRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Admin;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
+import edu.mum.cs.waa.project.bajargebeyaproject.repository.*;
+import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,7 +33,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     AdminRepo adminRepo;
 
+    @Autowired
+    RoleRepo roleRepo;
+
     public User save(User u){
+        // Encode plaintext password
+        u.setPassword(u.getPassword());
+        //setting active 0 if seller
+        if(u.getRole().equals("ROLE_SELLER")){
+            u.setActive(false);
+        }
+        u.setActive(true);
+
         return userRepo.save(u);
     }
 
@@ -49,6 +64,11 @@ public class UserServiceImpl implements UserService {
             return userRepo.findById(i).get();
         else
             return null;
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
 
     @Override
@@ -113,5 +133,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Admin getAdminById(Long id) {
         return adminRepo.getOne(id);
+    }
+
+    @Override
+    public List<Role> getAllRole() {
+        return roleRepo.findAll();
     }
 }

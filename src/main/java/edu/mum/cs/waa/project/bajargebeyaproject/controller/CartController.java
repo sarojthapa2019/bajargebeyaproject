@@ -6,6 +6,9 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.CartService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @SessionAttributes({"user","cart", "itemCount"})
 @Controller
@@ -50,14 +54,20 @@ public class CartController {
             model.addAttribute("itemCount",userService.getBuyerById(2l).getCart().getTotalItems());
         }
     }
+//    @RequestMapping(value = {"/"},
+//            method = RequestMethod.GET)
+//    public String homepage() {
+//        return "redirect:/index";
+//    }
 
-    @GetMapping("/index")
-    public String index(Model model){
-        Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer.getUser());
-        model.addAttribute("cart", buyer.getCart());
-        return "index";
-    }
+//    @RequestMapping("/")
+//    public String index(Model model){
+//
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Optional<User> user = userService.findByEmail(auth.getName());
+//        model.addAttribute("user", user);
+//        return "index";
+//    }
 
     @GetMapping("/cart")
     public String showCart(Model model){
