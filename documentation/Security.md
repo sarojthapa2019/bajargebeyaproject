@@ -30,9 +30,12 @@ And to check the specific role
 sec:authorize="hasAuthority('ROLE_ADMIN')" 
 
 Demo Code:
-<th class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment</th>
+
+<span class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment</th>
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk2MjIxMjQxNiwtNDY2OTIwODE0LDk1OD
-A2ODk5MiwtMTUxMTYxNjEwNCwzMzE5MDYzMDcsLTIxMzkzOTY2
-ODddfQ==
+eyJoaXN0b3J5IjpbMTY3ODIwNTMzNiwxOTYyMjEyNDE2LC00Nj
+Y5MjA4MTQsOTU4MDY4OTkyLC0xNTExNjE2MTA0LDMzMTkwNjMw
+NywtMjEzOTM5NjY4N119
 -->
