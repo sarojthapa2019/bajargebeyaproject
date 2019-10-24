@@ -23,12 +23,12 @@ as in following demo
  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  
   layout:decorate="~{views/common/masterlayout}">
 
-just use the sec 
+just use the sec:authorize tag to check authentication 
 <span sec:authorize="isAuthenticated()">  
-<a sec:authorize="hasAuthority('ROLE_ADMIN')"
+<a sec:authorize="hasAuthority('ROLE_ADMIN')" > Show accord
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTU4MDY4OTkyLDIwMDg0OTA2NjgsLTE1MT
+eyJoaXN0b3J5IjpbLTQzNjk1OTgzOSw5NTgwNjg5OTIsLTE1MT
 E2MTYxMDQsMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
 -->
