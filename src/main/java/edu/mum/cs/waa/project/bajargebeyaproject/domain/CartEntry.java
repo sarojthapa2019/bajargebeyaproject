@@ -11,6 +11,7 @@ public class CartEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     private Product product;
     private int quantity;

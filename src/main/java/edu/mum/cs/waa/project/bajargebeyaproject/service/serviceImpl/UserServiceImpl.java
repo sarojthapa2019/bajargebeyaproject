@@ -85,12 +85,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Seller getSellerById(Long id) {
-        return null;
+        return sellerRepo.getOne(id);
+    }
+
+    @Override
+    public List<Seller> getSellerByApproved(boolean b) {
+        return sellerRepo.findByApproved(b);
     }
 
     @Override
     public Admin getAdminById(Long id) {
-        return null;
+        return adminRepo.getOne(id);
+    }
+
+    @Override
+    public List<Seller> getSellers() {
+        return (List)sellerRepo.findAll();
+    }
+
+    @Override
+    public Buyer getBuyerByUserId(Long id) {
+        return buyerRepo.findByUserId(id);
+    }
+
+    @Override
+    public boolean checkRole(Long id, String role) {
+        System.out.println("checking role +"+role+":"+userRepo.findById(id).get().getRole().getRole().equals(role));
+        return userRepo.findById(id).get().getRole().getRole().equals(role);
     }
 
     @Override

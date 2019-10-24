@@ -39,7 +39,7 @@
                         </form>
                     </div>
                     <!-- User -->
-                    <div class="user"><a href="#"><div><img src="images/user.svg" alt="https://www.flaticon.com/authors/freepik"><div>1</div></div></a></div>
+                    <div class="user"><a href="#" th:href="@{'/dashboard'}"><div><img src="images/user.svg" alt="https://www.flaticon.com/authors/freepik"/><div th:if="${user}!=null" th:text="${user.notificationCount}">1</div></div></a></div>
                     <!-- Cart -->
                     <div  class="cart"><a th:href="@{'/cart'}"><div><img class="svg" src="images/cart.svg" alt="https://www.flaticon.com/authors/freepik"><div><span th:text="${itemCount}" id="cart-item-count">0</span></div></div></a></div>
                     <!-- Phone -->

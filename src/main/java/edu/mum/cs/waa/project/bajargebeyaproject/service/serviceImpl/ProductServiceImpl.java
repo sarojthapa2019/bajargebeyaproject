@@ -54,6 +54,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductByAds(boolean b) {
+        return productRepo.findByAnAdd(b);
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        return (List) productRepo.findAll();
+    }
     public Optional<Product> findById(Long id) {
         return productRepo.findById(id);
     }

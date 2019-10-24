@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/main_layout}"
+      xmlns:i="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.role.role+' Dashboard'}">Dashboard</title>
+</head>
+<body>
+
+<div layout:fragment="main">
+    <!-- Home -->
+
+    <div>
+        <br/><br/><br/><br/>
+        <div class="section_title"><!--/*@thymesVar id="role" type="user"*/-->
+            <span th:text="${user.role.role+' Dashboard'}"> Dashboard</span>
+        </div>
+        <table>
+            <tr>
+                <td>
+                    <!-- Personal  -->
+                    <div><!-- class="col-lg-6 product_col">-->
+                        <div class="product_info">
+                            <div class="product_name" th:text="${user.firstName+' '+user.lastName}">User Name</div>
+                            <div class="product_category">
+                                <span th:text="${'Address: '+user.MailingAddress.Street+', '+user.MailingAddress.City+', '+user.MailingAddress.State+', '+user.MailingAddress.Country}">Address</span>
+                            </div>
+                            <div class="product_category"><span th:text="${'Email: '+user.email}"></span></div>
+                            <div class="product_category"><span th:text="${'Account (Card Type) : '+user.account.cardType}"></span></div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <h4>Notifications</h4>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Date</th><th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="notic:${notifications}">
+                            <tr>
+                                <td th:text="${notic.getDate()}"></td>
+                                <td><a href="#" th:href="@{${notic.getActionUrl()}}" th:text="${notic.getMessage()}">Message</a> </td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <!-- Admin DashBoard Tables-->
+        <div th:if="${user.role.role=='Admin'}">
+            <!-- Seller Approval-->
+            <h3>Sellers Information</h3>
+            <table class="dashboard">
+                <thead>
+                    <tr>
+                        <th class="t_head">Name</th><th class="t_head">Mailing Address</th><th class="t_head">Billing Address</th><th class="t_head">Email</th><th>Followers</th><th>Rating</th><th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="seller:${Sellers}">
+                    <tr>
+                        <td class="t_data"><span th:text="${seller.user.firstName}+' '">First Name</span><span th:text="${seller.user.lastName}">Last Name</span></td>
+                        <td class="t_data">
+                            <span th:text="${seller.user.MailingAddress.Street}+', '+${seller.user.MailingAddress.City}+', '+${seller.user.MailingAddress.State}+', '+${seller.user.MailingAddress.Country}"></span>
+                        </td>
+                        <td class="t_data">
+                            <span th:text="${seller.user.BillingAddress.Street}+', '+${seller.user.BillingAddress.City}+', '+${seller.user.BillingAddress.State}+', '+${seller.user.BillingAddress.Country}"></span>
+                        </td>
+                        <td class="t_data"><span th:text="${seller.user.email}">Email@Email.com</span></td>
+                        <td class="t_data"><span th:text="${seller.followers.size()}">0</span></td>
+                        <td class="t_data">
+                            <span th:each="i:${#numbers.sequence(1,seller.rating,1)}" class="fa fa-star checked"></span>
+                            <span th:each="i:${#numbers.sequence(seller.rating,4,1)}" class="fa fa-star"></span>
+                        </td>
+                        <td class="t_data">
+                            <div class="button"><a href="#" th:href="@{'/seller/'+${seller.id}+'/'+${seller.isApproved?'false':'true'}}" th:text="${seller.isApproved}?Disable:Enable">Press</a></div>
+                        </td>
+
+                    </tr>
+                </th:block>
+                </tbody>
+            </table><br/>
+
+            <!--- Reviews --->
+            <h3>Product Reviews</h3>
+            <table class="dashboard">
+                <thead>
+                <tr>
+                    <th>Product</th><th>Rate</th><th>Review Message</th><th>Seller</th><th>Reviewed by</th><th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="review:${Reviews}">
+                    <tr>
+                        <td class="t_data"><span th:text="${review.product.name}"</span></td>
+                        <td class="t_data">
+                            <span th:each="i:${#numbers.sequence(1,review.rating,1)}" class="fa fa-star checked"></span>
+                            <span th:each="i:${#numbers.sequence(review.rating,4,1)}" class="fa fa-star"></span>
+                        </td>
+                        <td class="t_data">
+                            <span th:text="${review.description}"></span>
+                        </td>
+                        <td class="t_data">
+                            <span th:text="${review.product.seller.firstName+' '+review.product.seller.lastName}"></span>
+                        </td>
+                        <td class="t_data">
+                            <span th:text="${review.buyer.user.firstName+' '+review.buyer.user.lastName}"></span>
+                        </td>
+                        <td class="t_data">
+                            <div class="button"><a href="#" th:href="@{'/review/'+${review.id}+'/true'}}" th:text="${review.isApproved}?Block:Approve">Press</a></div>
+                        </td>
+
+                    </tr>
+                </th:block>
+                </tbody>
+            </table><br/>
+
+            <!--- Ads Product--->
+            <h3>Product Ads Request</h3>
+            <table class="dashboard">
+                <thead>
+                <tr>
+                    <th>Product</th><th>Description</th><th>Added by Seller</th><th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="product:${Prods}">
+                    <tr>
+                        <td class="t_data"><span th:text="${product.name}">Name</span></td>
+                        <td class="t_data">
+                            <span th:text="${product.description}"></span>
+                        </td>
+                        <td class="t_data">
+                            <span th:text="${product.seller.id}"></span>
+                        </td>
+                        <td class="t_data">
+                            <div class="button" ><a href="#" th:href="@{'/productAds/'+${product.id}+'/'+${product.isAnAdd?'false':'true'}}" th:text="${product.isAnAdd}?'Disable Ads':'Enable Ads'">Press</a></div>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Buyer DashBoard Tables-->
+    <div th:if="${user.role.role=='Buyer'}">
+        <!-- Product Order Cancel-->
+        <h3>Product Order Information</h3>
+        <table class="dashboard">
+            <thead>
+            <tr>
+                <th class="t_head">Product</th><th class="t_head">Status</th><th class="t_head">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="oe:${OrderEntries}">
+                <tr>
+                    <td class="t_data"><span th:text="${oe.product.name+'('+oe.quantity+')'}">Product Name</span></td>
+                    <td class="t_data">
+                        <span th:text="${oe.status}"></span>
+                    </td>
+                    <td class="t_data">
+                        <div class="button"><a href="#" th:href="@{'/cartEntry/'+${oe.id}+'/cancelled'}" th:text="Cancel">Press</a></div>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table><br/>
+    </div>
+
+    <!-- Seller DashBoard Tables-->
+    <div th:if="${user.role.role=='Seller'}">
+        <!-- Product Order Cancel-->
+        <h3>Product Order Information</h3>
+        <table class="dashboard">
+            <thead>
+            <tr>
+                <th class="t_head">Product</th><th class="t_head">Deliver To</th><th class="t_head">Status</th><th class="t_head">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="oe:${OrderEntries}">
+                <tr>
+                    <td class="t_data"><span th:text="${oe.product.name+'('+oe.quantity+')'}">Product Name</span></td>
+                    <td class="t_data"><span th:text="${oe.productOrder.buyer.user.firstName+' Address:('+oe.productOrder.shippingAddress.street+')'}">ShippAddress</span></td>
+                    <td class="t_data">
+                        <span th:text="${oe.status}"></span>
+                    </td>
+                    <td class="t_data">
+                        <div class="button"><a href="#" th:href="@{'/cartEntry/'+${oe.id}+'/delivered'}" th:text="Delevered">Press</a></div>
+                    </td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table><br/>
+    </div>
+
+</div>
+</body>
+</html>

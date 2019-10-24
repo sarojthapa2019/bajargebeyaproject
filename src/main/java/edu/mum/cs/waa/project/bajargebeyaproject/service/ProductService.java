@@ -5,6 +5,8 @@ import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.List;
+
 public interface ProductService {
 
     public Product save(Product p);
@@ -17,6 +19,9 @@ public interface ProductService {
 
     public Image saveImage(Image i);
 
+    public List<Product> getProductByAds(boolean b);
+
+    public List<Product> getProducts();
     public Optional<Product> findById(Long id);
 
     public List<ProductOrder> getAllProductOrderByBuyer(Buyer buyer);

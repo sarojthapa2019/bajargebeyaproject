@@ -26,33 +26,34 @@ public class CheckoutController {
         this.cartService = cartService;
     }
 
-     //for shopping cart we need common model attributes like cart
-    // here we are providing hardcoded user id
-    @ModelAttribute
-    public void commonCartAttributes(Model model){
-        if((Buyer)model.asMap().get("user")!=null) {
-            model.addAttribute("cart", ((Buyer) model.asMap().get("user")).getCart());
-            model.addAttribute("itemCount", ((Buyer) model.asMap().get("user")).getCart().getTotalItems());
-        }
-        else{
-            model.addAttribute("cart", userService.getBuyerById(1l).getCart());
-            model.addAttribute("itemCount",userService.getBuyerById(1l).getCart().getTotalItems());
-        }
-
-    }
+//     //for shopping cart we need common model attributes like cart
+//    // here we are providing hardcoded user id
+//    @ModelAttribute
+//    public void commonCartAttributes(Model model){
+//        if((Buyer)model.asMap().get("user")!=null) {
+//            model.addAttribute("cart", ((Buyer) model.asMap().get("user")).getCart());
+//            model.addAttribute("itemCount", ((Buyer) model.asMap().get("user")).getCart().getTotalItems());
+//        }
+//        else{
+//            model.addAttribute("cart", userService.getBuyerById(1l).getCart());
+//            model.addAttribute("itemCount",userService.getBuyerById(1l).getCart().getTotalItems());
+//        }
+//
+//    }
     //goto checkout
     @GetMapping("/cart/checkout")
     public String checkOut(Model model){
-        Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer);
-        model.addAttribute("cart", buyer.getCart());
+//        User user = (User)model.asMap().get("user");
+//        Buyer buyer = userService.getBuyerByUserId(user.getId());
+//        model.addAttribute("cart", buyer.getCart());
         return "checkout";
     }
 
     @GetMapping("/cart/checkout/order")
     public String placeOrder(Model model){
         Cart cart = (Cart)model.asMap().get("cart");
-        Buyer buyer = (Buyer) model.asMap().get("user");
+        User user = (User)model.asMap().get("user");
+        Buyer buyer = userService.getBuyerByUserId(user.getId());
         ProductOrder productOrder = new ProductOrder();
 
         productOrder.setBuyer(buyer);
@@ -60,11 +61,21 @@ public class CheckoutController {
         productOrder.setStatus("pending");
         productOrder.setReceipt(new Receipt());
         productOrder = productService.saveOrder(productOrder);
+        Receipt rcp = productOrder.getReceipt();
         for (CartEntry c: cart.getCartEntries()
              ) {
             c.setCart(null);
             c.setStatus("order");
             c.setProductOrder(productOrder);
+            ReceiptEntry re = new ReceiptEntry();
+            Product p = c.getProduct();
+            re.setProductName(p.getName());
+            re.setDiscount(p.getDiscount());
+            re.setPrice(c.getSubTotal());
+            re.setQuantity(c.getQuantity());
+            re.setTax(p.getTax());
+            rcp.getReceiptEntries().add(re);
+            re.setReceipt(rcp);
         }
 
         cart = cartService.saveCart(cart);
@@ -74,7 +85,8 @@ public class CheckoutController {
     }
     @GetMapping("/order/list")
     public String orderHistory(Model model){
-        Buyer buyer = (Buyer) model.asMap().get("user");
+        User user = (User)model.asMap().get("user");
+        Buyer buyer = userService.getBuyerByUserId(user.getId());
         model.addAttribute("productOrders", productService.getAllProductOrderByBuyer(buyer));
         return "orderSuccess";
     }

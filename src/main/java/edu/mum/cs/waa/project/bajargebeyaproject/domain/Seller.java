@@ -16,7 +16,24 @@ public class Seller {
     private User user;
     @OneToMany(mappedBy = "seller")//(cascade = CascadeType.ALL, mappedBy = "seller")
     private List<Product> products = new ArrayList<>();
-    private boolean isApproved;
+    private Boolean isApproved;
     @ManyToMany(mappedBy = "followings")//(cascade = CascadeType.ALL, mappedBy = "followings")
     private List<Buyer> followers = new ArrayList<>();
+
+    @Transient
+    private transient Integer rating;
+
+    public  Integer getRating(){
+        int rate = 0;
+        int cnt = 0;
+        for(Product p:products){
+            for(Review r:p.getReviews()){
+                rate+=r.getRating();
+                cnt++;
+            }
+        }
+        if(cnt>0)
+            return rate/cnt;
+        return 0;
+    }
 }

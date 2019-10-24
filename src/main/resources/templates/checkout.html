@@ -46,7 +46,7 @@
 									<div class="row">
 										<div class="col-lg-6">
 											<!-- Name -->
-											<input type="text" th:value="${user.user.firstName}" id="checkout_name" class="checkout_input" placeholder="First Name" required="required">
+											<input type="text" th:value="${user.firstName}" id="checkout_name" class="checkout_input" placeholder="First Name" required="required">
 										</div>
 										<div class="col-lg-6">
 											<!-- Last Name -->
@@ -70,19 +70,19 @@
 
 									<div>
 										<!-- Country -->
-										<input type="text" th:value="${user.user.billingAddress.country}" id="checkout_country" class="checkout_input" placeholder="Country" required="required">
+										<input type="text" th:value="${user.billingAddress.country}" id="checkout_country" class="checkout_input" placeholder="Country" required="required">
 									</div>
 									<div>
 										<!-- State -->
-										<input type="text" th:value="${user.user.billingAddress.state}" id="checkout_state" class="checkout_input" placeholder="State" required="required">
+										<input type="text" th:value="${user.billingAddress.state}" id="checkout_state" class="checkout_input" placeholder="State" required="required">
 									</div>
 									<div>
 										<!-- Street -->
-										<input type="text" th:value="${user.user.billingAddress.street}" id="checkout_street" class="checkout_input" placeholder="Street" required="required">
+										<input type="text" th:value="${user.billingAddress.street}" id="checkout_street" class="checkout_input" placeholder="Street" required="required">
 									</div>
 									<div>
 										<!-- Zipcode -->
-										<input type="text" th:value="${user.user.billingAddress.zipCode}" id="checkout_zipcode" class="checkout_input" placeholder="Zip Code" required="required">
+										<input type="text" th:value="${user.billingAddress.zipCode}" id="checkout_zipcode" class="checkout_input" placeholder="Zip Code" required="required">
 									</div>
 <!--									<div>-->
 <!--										&lt;!&ndash; City / Town &ndash;&gt;-->
@@ -106,11 +106,11 @@
 <!--									</div>-->
 <!--									<div>-->
 <!--										&lt;!&ndash; Phone no &ndash;&gt;-->
-<!--										<input type="phone" th:value="${user.user.billingAddress}" id="checkout_phone" class="checkout_input" placeholder="Phone No." required="required">-->
+<!--										<input type="phone" th:value="${user.billingAddress}" id="checkout_phone" class="checkout_input" placeholder="Phone No." required="required">-->
 <!--									</div>-->
 									<div>
 										<!-- Email -->
-										<input type="phone" th:value="${user.user.email}" id="checkout_email" class="checkout_input" placeholder="Email" required="required">
+										<input type="phone" th:value="${user.email}" id="checkout_email" class="checkout_input" placeholder="Email" required="required">
 									</div>
 									<div class="checkout_extra">
 										<ul>
