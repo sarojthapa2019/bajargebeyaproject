@@ -20,3 +20,6 @@ Adds each item to the cart /for changing the quantity of each products in a cart
 7. for clearing cart item
     @GetMapping("/cart/clear")
     public String clearCart(Model model)
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE2ODkzMTU3MzNdfQ==
+-->
