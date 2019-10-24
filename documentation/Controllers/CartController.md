@@ -18,6 +18,5 @@ Adds each item to the cart /for changing the quantity of each products in a cart
     public @ResponseBody HashMap<String, Object> updateQuantity(@RequestBody String  data, Model model) 
 
 7. for clearing cart item
- //for clearing cart items
     @GetMapping("/cart/clear")
     public String clearCart(Model model)
