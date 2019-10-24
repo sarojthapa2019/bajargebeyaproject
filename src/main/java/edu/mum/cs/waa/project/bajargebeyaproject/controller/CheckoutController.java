@@ -61,11 +61,21 @@ public class CheckoutController {
         productOrder.setStatus("pending");
         productOrder.setReceipt(new Receipt());
         productOrder = productService.saveOrder(productOrder);
+        Receipt rcp = productOrder.getReceipt();
         for (CartEntry c: cart.getCartEntries()
              ) {
             c.setCart(null);
             c.setStatus("order");
             c.setProductOrder(productOrder);
+            ReceiptEntry re = new ReceiptEntry();
+            Product p = c.getProduct();
+            re.setProductName(p.getName());
+            re.setDiscount(p.getDiscount());
+            re.setPrice(c.getSubTotal());
+            re.setQuantity(c.getQuantity());
+            re.setTax(p.getTax());
+            rcp.getReceiptEntries().add(re);
+            re.setReceipt(rcp);
         }
 
         cart = cartService.saveCart(cart);

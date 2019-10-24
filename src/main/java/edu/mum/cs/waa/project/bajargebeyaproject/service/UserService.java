@@ -34,4 +34,6 @@ public interface UserService {
     public List<Seller> getSellers();
 
     public Buyer getBuyerByUserId(Long id);
+
+    public boolean checkRole(Long id, String role);
 }

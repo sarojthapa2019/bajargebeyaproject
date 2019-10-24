@@ -10,4 +10,8 @@ public interface ReviewService {
     public List<Review> getReviewsByApproved(boolean b);
 
     public List<Review> getReviews();
+
+    public List<Review> getReviewsUnapproved();
+
+    public Review getReviewById(Long id);
 }
