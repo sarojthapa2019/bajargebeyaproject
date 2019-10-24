@@ -10,10 +10,7 @@ import edu.mum.cs.waa.project.bajargebeyaproject.domain.ReceiptEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.List;
 
 public class PdfUtil {
@@ -136,7 +133,9 @@ public class PdfUtil {
         Document document = new Document();
         document.open();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream("po"+receipt.getId()+"receipt.pdf"));
+            String folder = new File("").getAbsolutePath();
+            System.out.println(folder+"/po"+receipt.getId()+"receipt.pdf");
+            PdfWriter.getInstance(document, new FileOutputStream(folder+"/po"+receipt.getId()+"receipt.pdf"));
             document.add(getBillBody(receipt));
             document.close();
             return true;

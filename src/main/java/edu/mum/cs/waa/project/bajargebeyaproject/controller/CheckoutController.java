@@ -96,6 +96,7 @@ public class CheckoutController {
             re.setReceipt(rcp);
         }
 
+        System.out.println(reward);
         cart = cartService.saveCart(cart);
         model.addAttribute("productOrders", productService.getAllProductOrderByBuyer(buyer));
         if (reward)
