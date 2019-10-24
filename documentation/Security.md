@@ -4,6 +4,7 @@
 #For Getting Authenticated Current User from Authentication
 For Backend
 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
 Optional<User> user = userService.findByEmail(auth.getName());
 
 For Frontend
@@ -31,6 +32,7 @@ sec:authorize="hasAuthority('ROLE_ADMIN')"
 Demo Code:
 <th class="text-center" sec:authorize="hasAuthority('ROLE_ADMIN')">Issue Payment</th>
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ2NjkyMDgxNCw5NTgwNjg5OTIsLTE1MT
-E2MTYxMDQsMzMxOTA2MzA3LC0yMTM5Mzk2Njg3XX0=
+eyJoaXN0b3J5IjpbMTk2MjIxMjQxNiwtNDY2OTIwODE0LDk1OD
+A2ODk5MiwtMTUxMTYxNjEwNCwzMzE5MDYzMDcsLTIxMzkzOTY2
+ODddfQ==
 -->
