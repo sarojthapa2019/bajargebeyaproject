@@ -1,26 +1,20 @@
 /* JS Document */
 
 /******************************
-
-[Table of Contents]
-
-1. Vars and Inits
-2. Set Header
-3. Init Menu
-4. Init SVG
-5. InitQty
-
-
-******************************/
+ [Table of Contents]
+ 1. Vars and Inits
+ 2. Set Header
+ 3. Init Menu
+ 4. Init SVG
+ 5. InitQty
+ ******************************/
 
 $(document).ready(function()
 {
 	"use strict";
 
-	/* 
-
+	/*
 	1. Vars and Inits
-
 	*/
 
 	var header = $('.header');
@@ -41,10 +35,8 @@ $(document).ready(function()
 		setHeader();
 	});
 
-	/* 
-
+	/*
 	2. Set Header
-
 	*/
 
 	function setHeader()
@@ -59,10 +51,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	3. Init Menu
-
 	*/
 
 	function initMenu()
@@ -109,10 +99,8 @@ $(document).ready(function()
 		}
 	}
 
-	/* 
-
+	/*
 	4. Init SVG
-
 	*/
 
 	function initSvg()
@@ -133,11 +121,11 @@ $(document).ready(function()
 
 					// Add replaced image's ID to the new SVG
 					if(typeof imgID !== 'undefined') {
-					$svg = $svg.attr('id', imgID);
+						$svg = $svg.attr('id', imgID);
 					}
 					// Add replaced image's classes to the new SVG
 					if(typeof imgClass !== 'undefined') {
-					$svg = $svg.attr('class', imgClass+' replaced-svg');
+						$svg = $svg.attr('class', imgClass+' replaced-svg');
 					}
 
 					// Remove any invalid XML tags as per http://validator.w3.org
@@ -147,13 +135,11 @@ $(document).ready(function()
 					$img.replaceWith($svg);
 				}, 'xml');
 			});
-		}	
+		}
 	}
 
-	/* 
-
+	/*
 	5. Init Qty
-
 	*/
 
 	function initQty()
@@ -175,10 +161,41 @@ $(document).ready(function()
 				{
 					original = parseFloat(qty.find('.product_num').text());
 					if(original > 0)
-						{
-							newValue = original - 1;
-						}
+					{
+						newValue = original - 1;
+					}
 					num.text(newValue);
+
+					let itemId = num.attr("data");
+					var data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+
+					//for updating item number
+					$.ajax ({
+						url: '/cart/items/quantity',
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data: '{"itemId": '+itemId+', "quantity":'+newValue+' }',
+
+						success: function(responseData, status, xhttp){
+							console.log(responseData);
+
+
+							num.text(responseData.quantity);
+							$('#cartTotal').text(responseData.total);
+							$('#cardExtraTotal').text(responseData.total);
+							$('#cart-item-count').text(responseData.totalQuantity);
+
+							let divId = 'subTotal'+responseData.itemId;
+							console.log(divId);
+							let sub = document.getElementById('divId');
+							$('#'+divId).text(responseData.itemTotal);
+						},
+						error: function (err) {
+							console.log(err);
+						}
+					});
+
 				});
 
 				add.on('click', function()
@@ -186,6 +203,36 @@ $(document).ready(function()
 					original = parseFloat(qty.find('.product_num').text());
 					newValue = original + 1;
 					num.text(newValue);
+					let itemId = num.attr("data");
+					let data = '{"itemId": '+itemId+', "quantity":'+newValue+' }';
+
+
+					//for updating item number
+					$.ajax ({
+						url: '/cart/items/quantity',
+						type: "POST",
+						dataType: "json",
+						contentType: "application/json",
+						data: '{"itemId": '+itemId+', "quantity":'+newValue+' }',
+
+						success: function(responseData){
+							console.log(responseData);
+
+							num.text(responseData.quantity);
+							$('#cartTotal').text(responseData.total);
+							$('#cardExtraTotal').text(responseData.total);
+							$('#cart-item-count').text(responseData.totalQuantity);
+
+							let divId = 'subTotal'+responseData.itemId;
+							console.log(divId);
+							let sub = document.getElementById('divId');
+							$('#'+divId).text(responseData.itemTotal);
+
+						},
+						error: function (err) {
+							console.log(err);
+						}
+					});
 				});
 			});
 		}

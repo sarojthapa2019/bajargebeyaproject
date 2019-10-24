@@ -75,15 +75,15 @@
                             <div class="product_size_title">Seller</div>
                             <p th:text="${product.seller.firstName + ' ' + product.seller.lastName}">N/A</p>
                             <a class="btn btn-warning"
-                               th:href="@{/users/follow/{buyerId}/{sellerId}(userId=${buyer.id}, sellerId=${product.seller.id})}" href="#">Follow</a>
+                               th:href="@{/products/{id}/follow/{sellerId}(id=${product.id}, sellerId=${product.seller.id})}" href="#">Follow</a>
                         </div>
                         <div class="product_size">
-                            <div class="product_size_title">Review</div>
+                            <div class="product_size_title">Description</div>
                             <p th:text="${product.description}">N/A</p>
                         </div>
                         <div class="product_buttons">
                             <div class="text-right d-flex flex-row align-items-start justify-content-start">
-                                <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+                                <div class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center" th:data-value="${product.id}">
                                     <div>
                                         <div><img src="../static/images/cart.svg" th:src="@{/images/cart.svg}"
                                                   class="svg" alt="">
@@ -111,7 +111,7 @@
                 <div th:each="review : ${reviews}">
                     <div class="product_size">
                         <div class="product_size_title">Buyer</div>
-                        <p th:text="${review.buyer}">N/A</p>
+                        <p th:if="${review.buyer != null}" th:text="${review.buyer.user.firstName + ' '+ review.buyer.user.lastName}">N/A</p>
                     </div>
                     <div class="product_size">
                         <div class="product_size_title">Rating</div>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="product_text">
+                    <div class="product_size_title">
                         <p th:text="${review.description}">N/A</p>
                     </div>
                 </div>
@@ -142,9 +142,9 @@
 
                         <h2 class="footer_about_text">Add Review</h2>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description">Review:</label>
                             <textarea class="form-control" type="text" id="description" th:field="*{description}"
-                                      placeholder="Description"></textarea>
+                                      placeholder="Your review"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -172,38 +172,6 @@
     </div>
 </div>
 
-<!-- Boxes -->
-
-<!--<div class="boxes">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-6">-->
-<!--                <div class="box d-flex flex-row align-items-center justify-content-start">-->
-<!--                    <div class="mt-auto">-->
-<!--                        <div class="box_image"><img src="../static/images/boxes_1.png"-->
-<!--                                                    th:src="@{/images/boxes_1.png}" alt=""></div>-->
-<!--                    </div>-->
-<!--                    <div class="box_content">-->
-<!--                        <div class="box_title">Size Guide</div>-->
-<!--                        <div class="box_text">Phasellus sit amet nunc eros sed nec tellus.</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-6 box_col">-->
-<!--                <div class="box d-flex flex-row align-items-center justify-content-start">-->
-<!--                    <div class="mt-auto">-->
-<!--                        <div class="box_image"><img src="../static/images/boxes_2.png"-->
-<!--                                                    th:src="@{/images/boxes_2.png}" alt=""></div>-->
-<!--                    </div>-->
-<!--                    <div class="box_content">-->
-<!--                        <div class="box_title">Shipping</div>-->
-<!--                        <div class="box_text">Phasellus sit amet nunc eros sed nec tellus.</div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 </div>
 
 <script type="text/javascript">
@@ -234,5 +202,6 @@
 <script src="../static/plugins/flexslider/jquery.flexslider-min.js"
         th:src="@{/plugins/flexslider/jquery.flexslider-min.js}"></script>
 <script src="../static/js/product.js" th:src="@{/js/product.js}"></script>
+<script src="../static/js/myCart.js.js" th:src="@{/js/myCart.js}"></script>
 </body>
 </html>
