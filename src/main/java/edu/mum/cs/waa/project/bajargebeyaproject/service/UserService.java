@@ -36,4 +36,6 @@ public interface UserService {
     public Buyer getBuyerByUserId(Long id);
 
     public boolean checkRole(Long id, String role);
+
+    public User findByEmail(String uid);
 }

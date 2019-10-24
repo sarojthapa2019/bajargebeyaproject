@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -60,7 +59,7 @@ public class DashboardController {
                     model.addAttribute("OrderEntries",cartService.getPendingOrders());
             }
 
-            return "dashboard";
+            return "dashboardPg";
         }
         return "login";
     }
@@ -78,6 +77,14 @@ public class DashboardController {
         Review r = reviewService.getReviewById(id);
         r.setIsApproved(bool);
         r = reviewService.save(r);
+        return "redirect:/dashboard";
+    }
+
+    @GetMapping("/productAds/{id}/{bool}")
+    public String approveAdd(@PathVariable("id") Long id, @PathVariable("bool") Boolean bool){
+        Product r = productService.findById(id).get();
+        r.setIsAnAdd(bool);
+        r = productService.save(r);
         return "redirect:/dashboard";
     }
 

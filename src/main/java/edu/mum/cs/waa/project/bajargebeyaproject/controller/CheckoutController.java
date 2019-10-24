@@ -64,8 +64,8 @@ public class CheckoutController {
         return "checkout";
     }
 
-    @GetMapping("/cart/checkout/order/{reward}")
-    public String placeOrder(@PathVariable(value="reward", required = false) Boolean reward, Model model) throws Exception {
+    @GetMapping("/cart/checkout/order")
+    public String placeOrder(Model model) throws Exception {
         Cart cart = (Cart) model.asMap().get("cart");
         User user = (User) model.asMap().get("user");
         Buyer buyer = userService.getBuyerByUserId(user.getId());
@@ -85,34 +85,34 @@ public class CheckoutController {
             ReceiptEntry re = new ReceiptEntry();
             Product p = c.getProduct();
             re.setProductName(p.getName());
-            if (!reward) {
+//            if (!reward) {
                 re.setDiscount(p.getDiscount());
                 re.setPrice(c.getSubTotal());
                 re.setQuantity(c.getQuantity());
                 re.setTax(p.getTax());
                 rcp.setTotal(rcp.getTotal() + re.getPrice());
-            }
+//            }
             rcp.getReceiptEntries().add(re);
             re.setReceipt(rcp);
         }
 
-        System.out.println(reward);
+//        System.out.println(reward);
         cart = cartService.saveCart(cart);
         model.addAttribute("productOrders", productService.getAllProductOrderByBuyer(buyer));
-        if (reward)
-            return "redirect:/order/list";
-        else {
+//        if (reward)
+//            return "redirect:/order/list";
+//        else {
             String retUrl = "redirect:" + paypalService.makePayment(rcp.getTotal(), "" + productOrder.getId());//order/list";
-            if(retUrl.indexOf("order/list")>0){
-                if(PdfUtil.saveReceipt(productOrder.getReceipt())){
-                    noticeService.sendReceipt("Purchase Receipt","po"+productOrder.getReceipt().getId()+"receipt.pdf",productOrder.getBuyer().getUser());
-                }
-                else {
-                    noticeService.sendReceipt(productOrder.getReceipt().getId(),productOrder.getBuyer().getUser());
-                }
-            }
+//            if(retUrl.indexOf("order/list")>0){
+//                if(PdfUtil.saveReceipt(productOrder.getReceipt())){
+//                    noticeService.sendReceipt("Purchase Receipt","po"+productOrder.getReceipt().getId()+"receipt.pdf",productOrder.getBuyer().getUser());
+//                }
+//                else {
+//                    noticeService.sendReceipt(productOrder.getReceipt().getId(),productOrder.getBuyer().getUser());
+//                }
+//            }
             return retUrl;
-        }
+//        }
     }
 
     @GetMapping("/order/list")
