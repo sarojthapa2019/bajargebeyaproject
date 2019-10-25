@@ -1,5 +1,6 @@
 #MyCart:
 
+
 $(document).ready(function () {
 //get the clicked product id and call rest api
    $('.product_cart').click(function (event) {
@@ -8,11 +9,13 @@ $(document).ready(function () {
        var productId = item.attr('data-value');
        // alert(productId);
 
+
        $.ajax ({
            url: '/cart/items/'+2,
            type: "GET",
            dataType: "json",
            contentType: "application/json",
+
 
            complete: function(responseData, status, xhttp){
                console.log(responseData);
@@ -22,5 +25,5 @@ $(document).ready(function () {
    })
 });
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzEyNTM0Mjc0XX0=
+eyJoaXN0b3J5IjpbLTE0MTk0MDEwMzAsNzEyNTM0Mjc0XX0=
 -->
