@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{main_layout}">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +15,7 @@
                 <div class="logo">
                     <a href="#">
                         <div class="d-flex flex-row align-items-center justify-content-start">
-                            <div><img src="../static/images/logo_1.png" th:src="@{/images/logo_1.png}" alt=""></div>
+                            <div><img src="images/logo_1.png" alt=""></div>
                             <div>Bajar Gebeya</div>
                         </div>
                     </a>
@@ -36,22 +35,17 @@
                     <div class="header_search">
                         <form action="#" id="header_search_form">
                             <input type="text" class="search_input" placeholder="Search Item" required="required">
-                            <button class="header_search_button"><img src="../static/images/search.png" th:src="@{/images/search.png}" alt=""></button>
+                            <button class="header_search_button"><img src="images/search.png" alt=""></button>
                         </form>
                     </div>
                     <!-- User -->
-
                     <div class="user"><a href="#" th:href="@{'/dashboard'}"><div><img src="images/user.svg" alt="https://www.flaticon.com/authors/freepik"/><div th:if="${user}!=null" th:text="${user.notificationCount}">1</div></div></a></div>
                     <!-- Cart -->
-                    <div  class="cart"><a th:href="@{'/cart'}"><div><img class="svg" src="../static/images/cart.svg" th:src="@{/images/cart.svg}" alt="https://www.flaticon.com/authors/freepik"><div th:text="${itemCount}" id="cart-item-count">0</div></div></a></div>
+                    <div  class="cart"><a th:href="@{'/cart'}"><div><img class="svg" src="images/cart.svg" alt="https://www.flaticon.com/authors/freepik"><div><span th:text="${itemCount}" id="cart-item-count">0</span></div></div></a></div>
                     <!-- Phone -->
-<!--                    <div class="sign-out"><i class="fas fa-sign-out-alt">L</i></div>-->
-
                     <div class="header_phone d-flex flex-row align-items-center justify-content-start">
-                        <div class="fa fa-sign-out"><a th:href="@{/user/logout}">Logout</a></div>
-<!--                        <div><div><img src="../static/images/phone.svg" th:src="@{/images/phone.svg}" alt="https://www.flaticon.com/authors/freepik"></div></div>-->
-                        <div th:if="${user!=null}" th:text="${'Welcome, '+user.firstName}">+1 641-010-0060</div>
-                        <div th:unless="${user!=null}" th:text="${'Welcome, Guest'}">+1 641-010-0060</div>
+                        <div><div><img src="images/phone.svg" alt="https://www.flaticon.com/authors/freepik"></div></div>
+                        <div>+1 000-000-0000</div>
                     </div>
                 </div>
             </div>

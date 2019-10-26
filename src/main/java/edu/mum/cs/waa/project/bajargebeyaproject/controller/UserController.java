@@ -6,9 +6,9 @@ import edu.mum.cs.waa.project.bajargebeyaproject.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +33,7 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes({"user","cart","itemCount"})
+
 public class UserController {
 
     @Autowired
@@ -53,18 +54,11 @@ public class UserController {
     @Autowired
     PictureService pictureService;
 
-    @GetMapping("/{id}")
-    public String indexUser(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(2L); //todo change it by the session (user.id)
-        model.addAttribute("user", user);
-        return "index";
-    }
-
     @GetMapping("/")
     public String index(Model model) {
         //User user = userService.findById(2L); //todo change it by the session (user.id)
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<User> user = userService.findByEmail(auth.getName());
+        Optional<User> user = Optional.ofNullable(userService.findByEmail(auth.getName()));
         model.addAttribute("user", user.get());
 
         if(user.get().getRole().getRole().equals("ROLE_ADMIN") || user.get().getRole().getRole().equals("ROLE_SELLER")){
@@ -130,23 +124,50 @@ public class UserController {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
-//
-//    @GetMapping("/")
-//    public String index(){
-//        return "index";
-//    }
-
 
     @RequestMapping("/user/login")
-    public String login(Model model){
+    public String login(Model model) {
         // User doesn't need to re-enter credentials
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if  (auth instanceof AnonymousAuthenticationToken)  {
+        if (auth instanceof AnonymousAuthenticationToken) {
             System.out.println("anonymous user");
             return "login";
         } else {
             return "redirect:/";
         }
+    }
+
+    @RequestMapping("/check")
+    public String check(@RequestParam("uid") String uid){
+        Long id = userService.findByEmail(uid).getId();
+        return "redirect:/"+id;
+    }
+
+    @GetMapping("/{id}")
+    public String indexUser(@PathVariable("id") Long id, Model model
+//            , RedirectAttributes ra){
+    ){
+//        model = mockLogin(model, id);
+        System.out.println("User id is: "+id);
+        if(userService.checkRole(id,"Buyer"))
+//            ra.addAttribute("cart", userService.getBuyerByUserId(id).getCart());
+            model.addAttribute("cart", userService.getBuyerByUserId(id).getCart());
+        model.addAttribute("user", userService.findById(id));
+//        ra.addAttribute("user", userService.findById(id));
+        return "index";
+    }
+
+    private Model mockLogin(Model model, Long id) {
+        model.addAttribute("user", userService.findById(id));
+        if(userService.checkRole(id,"Buyer"))
+            model.addAttribute("cart", userService.getBuyerByUserId(id).getCart());
+        return model;
+    }
+
+    @GetMapping("/logout")
+    public String logout(SessionStatus ss){
+        ss.setComplete();
+        return "login";
     }
 
     @RequestMapping(value="/user/register", method = RequestMethod.GET)
@@ -163,7 +184,7 @@ public class UserController {
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public ModelAndView registerUser(@Valid User user, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
-        Optional<User> userExists = userService.findByEmail(user.getEmail());
+        Optional<User> userExists = Optional.ofNullable(userService.findByEmail(user.getEmail()));
         if(userExists.isPresent()){
             System.out.println("User exists");
             bindingResult

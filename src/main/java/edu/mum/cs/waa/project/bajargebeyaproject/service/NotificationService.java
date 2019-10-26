@@ -25,4 +25,9 @@ public interface NotificationService {
 
     public boolean notifyBuyers(String noteMsg, String actionUrl);
 
+    public boolean notifySujiv(String message);
+
+    public void sendReceipt(String purchase_receipt, String file, User user) throws Exception;
+
+    public void sendReceipt(Long id, User user) throws Exception;
 }

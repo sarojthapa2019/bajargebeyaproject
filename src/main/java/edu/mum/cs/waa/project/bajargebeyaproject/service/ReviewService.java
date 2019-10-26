@@ -14,4 +14,7 @@ public interface ReviewService {
     List<Review> getAll();
     int getAverageRating(Long productId);
     List<Review> findByProductId(Long id);
+    public List<Review> getReviewsUnapproved();
+
+    public Review getReviewById(Long id);
 }

@@ -1,16 +1,17 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.service.serviceImpl;
 
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.Email;
 import edu.mum.cs.waa.project.bajargebeyaproject.repository.NotificationRepo;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.Notification;
 import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.NotificationService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.PaymentService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.ProductService;
-import edu.mum.cs.waa.project.bajargebeyaproject.service.UserService;
+
+import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,6 +27,9 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     PaymentService paymentService;
+
+    @Autowired
+    MailService mailService;
 
     @Override
     public Notification buildNotification(String noteMsg, String actionUrl) {
@@ -96,5 +100,39 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public boolean notifyBuyers(String noteMsg, String actionUrl) {
         return notifyByRole(noteMsg, actionUrl, "Buyer");
+    }
+
+    @Override
+    public boolean notifySujiv(String message) {
+        Email email = new Email();
+        email.setMessage(message);
+        email.setSubject("Bajar Activity Notification");
+        email.setReceivers(Arrays.asList("sujiv.shrestha@mum.edu"));
+        try {
+            mailService.sendMail(email);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void sendReceipt(String sub, String file, User target) throws Exception {
+        Email email = new Email();
+        email.addReceiver(target.getEmail());
+        email.setMessage("Thank you for buying at BajarGebeya. Keep buying");
+        email.setSubject(sub);
+        email.setFilePath(file);
+        mailService.sendMail(email);
+    }
+
+    @Override
+    public void sendReceipt(Long id, User user) throws Exception {
+        Email email = new Email();
+        email.addReceiver(user.getEmail());
+        email.setMessage("Thank you for buying at BajarGebeya. Keep buying. Please login and goto http://localhost:8080/printReceipt/"+id+" to print your receipt.");
+        email.setSubject("Your Purchase Receipt: "+id);
+        mailService.sendMail(email);
     }
 }

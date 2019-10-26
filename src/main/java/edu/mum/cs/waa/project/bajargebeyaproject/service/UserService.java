@@ -15,7 +15,7 @@ public interface UserService {
 
     public User findById(Long i);
 
-    public Optional<User> findByEmail(String email);
+    //public Optional<User> findByEmail(String email);
 
     public Buyer saveBuyer(Buyer b);
 
@@ -39,4 +39,7 @@ public interface UserService {
 
     Seller findSellerByUserId(Long userId);
     public List<Role> getAllRole();
+    public boolean checkRole(Long id, String role);
+
+    public User findByEmail(String uid);
 }

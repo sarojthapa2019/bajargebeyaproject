@@ -13,9 +13,9 @@ public class ReceiptEntry {
 
     private String productName;
     private Double price;
-    private int quantity;
+    private Integer quantity;
     private Double tax;
-    private double discount;
+    private Double discount;
     @ManyToOne(cascade = CascadeType.ALL)
     private Receipt receipt;
 }

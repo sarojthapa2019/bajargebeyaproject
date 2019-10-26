@@ -139,4 +139,15 @@ public class UserServiceImpl implements UserService {
     public List<Role> getAllRole() {
         return roleRepo.findAll();
     }
+
+    @Override
+    public boolean checkRole(Long id, String role) {
+        System.out.println("checking role +"+role+":"+userRepo.findById(id).get().getRole().getRole().equals(role));
+        return userRepo.findById(id).get().getRole().getRole().equals(role);
+    }
+
+    @Override
+    public User findByEmail(String uid) {
+        return userRepo.findByEmail(uid);
+    }
 }

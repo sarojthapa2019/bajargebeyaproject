@@ -42,4 +42,13 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> findByProductId(Long id) {
         return reviewRepo.findByProductId(id);
     }
+
+    public List<Review> getReviewsUnapproved() {
+        return reviewRepo.findByApproved(false);
+    }
+
+    @Override
+    public Review getReviewById(Long id) {
+        return reviewRepo.findById(id).get();
+    }
 }
