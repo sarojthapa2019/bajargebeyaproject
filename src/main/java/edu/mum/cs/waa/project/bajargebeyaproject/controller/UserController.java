@@ -1,12 +1,7 @@
 package edu.mum.cs.waa.project.bajargebeyaproject.controller;
 
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Buyer;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Category;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Product;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.User;
+import edu.mum.cs.waa.project.bajargebeyaproject.domain.*;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.*;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.ProductInfo;
-import edu.mum.cs.waa.project.bajargebeyaproject.domain.Seller;
 import edu.mum.cs.waa.project.bajargebeyaproject.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +32,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@SessionAttributes({"user"})
+@SessionAttributes({"user","cart","itemCount"})
 public class UserController {
 
     @Autowired
@@ -67,10 +62,16 @@ public class UserController {
 
     @GetMapping("/")
     public String index(Model model) {
-
         //User user = userService.findById(2L); //todo change it by the session (user.id)
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<User> user = userService.findByEmail(auth.getName());
+        model.addAttribute("user", user.get());
+
+        if(user.get().getRole().getRole().equals("ROLE_ADMIN") || user.get().getRole().getRole().equals("ROLE_SELLER")){
+            return "redirect:/dashboard";
+        }
+
+        System.out.println("User****" + user.get());
 
         List<Product> productList = productService.getAll();
         List<ProductInfo> products = new ArrayList<ProductInfo>();
@@ -108,7 +109,16 @@ public class UserController {
 
         model.addAttribute("ads", ads);
 
-        model.addAttribute("user", user);
+        Buyer buyer = (Buyer)userService.getBuyerByUserId(user.get().getId());
+        Cart cart = buyer.getCart();
+
+        model.addAttribute("cart", cart);
+
+        if(user.get().getRole().getRole().equals("ROLE_BUYER")) {
+
+            model.addAttribute("cart", userService.getBuyerByUserId(user.get().getId()).getCart());
+            model.addAttribute("itemCount", userService.getBuyerByUserId(user.get().getId()).getCart().getTotalItems());
+        }
 
         return "index";
     }
@@ -128,7 +138,7 @@ public class UserController {
 
 
     @RequestMapping("/user/login")
-    public String login(){
+    public String login(Model model){
         // User doesn't need to re-enter credentials
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if  (auth instanceof AnonymousAuthenticationToken)  {
@@ -144,7 +154,8 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
         modelAndView.addObject("user", user);
-        modelAndView.addObject("roles", userService.getAllRole());
+        List<Role> roles = userService.getAllRole();
+        modelAndView.addObject("roles", roles);
         modelAndView.setViewName("registration");
         return modelAndView;
     }

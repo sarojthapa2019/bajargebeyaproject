@@ -44,10 +44,10 @@
                     <!-- Cart -->
                     <div  class="cart"><a th:href="@{'/cart'}"><div><img class="svg" src="../static/images/cart.svg" th:src="@{/images/cart.svg}" alt="https://www.flaticon.com/authors/freepik"><div th:text="${itemCount}" id="cart-item-count">0</div></div></a></div>
                     <!-- Phone -->
-                    <div class="sign-out"><i class="fas fa-sign-out-alt">L</i></div>
+<!--                    <div class="sign-out"><i class="fas fa-sign-out-alt">L</i></div>-->
 
                     <div class="header_phone d-flex flex-row align-items-center justify-content-start">
-                        <div class="fa fa-sign-out"><a th:href="@{/}">Logout</a></div>
+                        <div class="fa fa-sign-out"><a th:href="@{/user/logout}">Logout</a></div>
 <!--                        <div><div><img src="../static/images/phone.svg" th:src="@{/images/phone.svg}" alt="https://www.flaticon.com/authors/freepik"></div></div>-->
                         <div th:if="${user!=null}" th:text="${'Welcome, '+user.firstName}">+1 641-010-0060</div>
                         <div th:unless="${user!=null}" th:text="${'Welcome, Guest'}">+1 641-010-0060</div>

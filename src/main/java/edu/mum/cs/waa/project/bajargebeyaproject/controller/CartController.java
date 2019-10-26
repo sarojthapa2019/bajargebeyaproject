@@ -76,10 +76,13 @@ public class CartController {
 //        if(cartService.findByBuyer(buyer).isPresent()){
 //            model.addAttribute("cart", cartService.findByBuyer(buyer).get());
 //        }
-        Buyer buyer = userService.getBuyerById(1L);
-        model.addAttribute("user", buyer.getUser());
+        //Buyer buyer = userService.getBuyerById(1L);
 
-        model.addAttribute("cart", buyer.getCart());
+//        model.addAttribute("user", buyer.getUser());
+//
+//        model.addAttribute("cart", buyer.getCart());
+
+
         return "cart";
     }
 
@@ -89,6 +92,8 @@ public class CartController {
     @ResponseBody
     public  HashMap<String, Object>  addEntryToCart(@PathVariable("id") Long productId, Model model){
         Cart cart = null;
+        System.out.println("Product id: "+productId);
+
         int itemCount = 0;
         if(productService.findById(productId)!=null){
             Product product = productService.findById(productId);

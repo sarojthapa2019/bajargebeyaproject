@@ -41,7 +41,9 @@ public class DashboardController {
     public String getDashboard(Model model) {
         Map<String, Object> modelMap = model.asMap();
         if(modelMap.containsKey("user")){
+
             User u = (User)modelMap.get("user");
+
             model.addAttribute("notifications",u.getNotifications());
             switch(u.getRole().getRole()){
                 case "Admin":

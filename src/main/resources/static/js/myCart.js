@@ -6,7 +6,7 @@ $(document).ready(function () {
        var item = $(this);
 
        var productId = item.attr('data-value');
-        // alert(productId);
+         alert(productId);
 
        $.ajax ({
            url: '/cart/items/'+productId,
@@ -15,7 +15,7 @@ $(document).ready(function () {
            contentType: "application/json",
 
            complete: function(responseData, status, xhttp){
-               console.log(responseData);
+               console.log("result",responseData);
                $('#cart-item-count').text('('+responseData.responseJSON.count+')');
            }
        });

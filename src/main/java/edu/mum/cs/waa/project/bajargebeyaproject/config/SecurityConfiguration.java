@@ -52,9 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
 
         http.authorizeRequests()
-                .antMatchers("/webjars/**","/static/**","/error/**","/error?*","/user/register").permitAll()
-                .antMatchers("/index").hasAnyRole("ADMIN","SELLER","BUYER")
-                .anyRequest().authenticated()
+                .antMatchers("/**","/webjars/**","/static/**","/error/**","/error?*","/user/register").permitAll()
+                .antMatchers("/index", "/dashboard").hasAnyRole("ADMIN","SELLER","BUYER")
+                //.anyRequest().authenticated()
                 .and()
                 .csrf().disable()
                 .formLogin()
